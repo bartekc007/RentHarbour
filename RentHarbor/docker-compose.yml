@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket.Api/Dockerfile
+
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Services/Catalog.Api/Dockerfile
+
+
+  authorization.api:
+    image: ${DOCKER_REGISTRY-}authorizationapi
+    build:
+      context: .
+      dockerfile: Services/Authorization.Api/Dockerfile
+
+
+  communication.api:
+    image: ${DOCKER_REGISTRY-}communicationapi
+    build:
+      context: .
+      dockerfile: Services/Communication.Api/Dockerfile
+
+
+  document.api:
+    image: ${DOCKER_REGISTRY-}documentapi
+    build:
+      context: .
+      dockerfile: Services/Document.Api/Dockerfile
+
+
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering.Api/Dockerfile
+
+  authorization.sqlserver:
+    image: mcr.microsoft.com/mssql/server
+
