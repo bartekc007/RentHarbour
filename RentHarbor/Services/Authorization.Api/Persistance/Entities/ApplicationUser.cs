@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Authorization.Api.Persistance.Entities
+namespace Authorization.Persistance.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        // Możesz dodać dodatkowe właściwości użytkownika tutaj
+        public DateTime? DateOfBirth { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }

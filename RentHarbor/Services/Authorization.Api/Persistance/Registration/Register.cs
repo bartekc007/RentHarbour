@@ -1,11 +1,11 @@
-﻿using Authorization.Api.Persistance.Context;
-using Authorization.Api.Persistance.Entities;
+﻿using Authorization.Persistance.Context;
+using Authorization.Persistance.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Authorization.Api.Persistance.Registration
+namespace Authorization.Persistance.Registration
 {
     public static class Register
     {

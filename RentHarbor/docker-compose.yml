@@ -18,7 +18,7 @@ services:
     image: ${DOCKER_REGISTRY-}authorizationapi
     build:
       context: .
-      dockerfile: Services/Authorization.Api/Dockerfile
+      dockerfile: Services/Authorization.Api/Presentation/Dockerfile
 
 
   communication.api:
@@ -43,4 +43,7 @@ services:
 
   authorization.sqlserver:
     image: mcr.microsoft.com/mssql/server
+
+volumes:
+  mssql_auth:
 

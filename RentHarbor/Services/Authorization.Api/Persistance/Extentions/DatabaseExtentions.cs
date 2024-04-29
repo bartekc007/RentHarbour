@@ -1,12 +1,10 @@
-﻿using Authorization.Api.Persistance.Context;
-using Authorization.Api.Persistance.Entities;
+﻿using Authorization.Persistance.Context;
+using Authorization.Persistance.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Authorization.Api.Persistance.Extensions
+namespace Authorization.Persistance.Extentions
 {
     public static class DatabaseExtentions
     {
@@ -26,8 +24,22 @@ namespace Authorization.Api.Persistance.Extensions
 
         private static async Task AddSampleUsersAsync(UserManager<ApplicationUser> userManager)
         {
-            var user1 = new ApplicationUser { UserName = "user1@example.com", Email = "user1@example.com" };
-            var user2 = new ApplicationUser { UserName = "user2@example.com", Email = "user2@example.com" };
+            var user1 = new ApplicationUser
+            {
+                UserName = "user1@example.com",
+                Email = "user1@example.com",
+                Address = "Krakowska 1",
+                City = "Kraków",
+                Country = "Polska"
+            };
+            var user2 = new ApplicationUser
+            {
+                UserName = "user2@example.com",
+                Email = "user2@example.com",
+                Address = "Krakowska 2",
+                City = "Kraków",
+                Country = "Polska"
+            };
 
             await userManager.CreateAsync(user1, "Password1234!");
             await userManager.CreateAsync(user2, "Password1234!");

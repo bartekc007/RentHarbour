@@ -1,0 +1,60 @@
+﻿using Authorization.Application.Domains.User.Register;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Authorization.Application.Domains.User.RefreshToken;
+using System.Net;
+using Authorization.Application.Domains.User.Login;
+
+namespace Authorization.Api.Controllers.User
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController: ControllerBase
+    {
+        private readonly IMediator mediator;
+
+        public UserController(IMediator mediator)
+        {
+            this.mediator = mediator;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody]RegisterCommand command)
+        {
+            var result = await mediator.Send(command);
+            
+            // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
+            HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.Token);
+            return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]LoginCommand command)
+        {
+            var result = await mediator.Send(command);
+
+            // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
+            HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.AccessToken);
+            return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+        }
+
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            // Pobierz token odświeżania z nagłówka Authorization
+            string refreshToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            var command = new RefreshTokenCommand
+            {
+                RefreshToken = refreshToken
+            };
+
+            var result = await mediator.Send(command);
+
+            HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.AccessToken);
+            return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+        }
+    }
+}

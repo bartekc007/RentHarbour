@@ -67,4 +67,4 @@ services:
     ports:
       - "1433:1433"
     volumes:
-     - E:/Volumens:/var/opt/mssql/data
+     - mssql_auth:/var/opt/mssql/data
