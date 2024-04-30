@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Authorization.Application.Domains.User.RefreshToken;
 using System.Net;
 using Authorization.Application.Domains.User.Login;
+using Microsoft.AspNetCore.Authorization;
+using Authorization.Infrastructure.Services.Jwt;
 
 namespace Authorization.Api.Controllers.User
 {
@@ -13,10 +15,12 @@ namespace Authorization.Api.Controllers.User
     public class UserController: ControllerBase
     {
         private readonly IMediator mediator;
+        private readonly IJwtService jwtService;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, IJwtService jwtService)
         {
             this.mediator = mediator;
+            this.jwtService = jwtService;
         }
 
         [HttpPost("register")]
@@ -55,6 +59,22 @@ namespace Authorization.Api.Controllers.User
 
             HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.AccessToken);
             return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+        }
+
+        [HttpGet("userId")]
+        public async Task<IActionResult> GetUserIdFromTokenAsync()
+        {
+            // Pobierz obecne żądanie
+            string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var userId = jwtService.GetPrincipalFromToken(token);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                // Użytkownik nie jest uwierzytelniony lub nie ma wymaganego tokenu
+                return Unauthorized();
+            }
+
+            return Ok(new { UserId = userId });
         }
     }
 }

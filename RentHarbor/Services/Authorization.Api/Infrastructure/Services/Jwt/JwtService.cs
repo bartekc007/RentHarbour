@@ -1,4 +1,5 @@
 ﻿using Authorization.Persistance.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,6 +39,33 @@ namespace Authorization.Infrastructure.Services.Jwt
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public string GetPrincipalFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+            if (jwtToken == null)
+                return null;
+
+            var validationParameters = new TokenValidationParameters
+            {
+                RequireExpirationTime = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.SecretKey)),
+                ValidIssuer = _jwtSettings.Issuer,
+                ValidAudience = _jwtSettings.Audience
+            };
+
+            SecurityToken securityToken;
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out securityToken);
+
+            var userId = principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = principal?.FindFirst(ClaimTypes.Name)?.Value;
+
+            return userId;
         }
 
         public string GenerateRefreshToken()

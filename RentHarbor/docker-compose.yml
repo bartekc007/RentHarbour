@@ -4,15 +4,14 @@ services:
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
     build:
-      context: .
-      dockerfile: Services/Basket.Api/Dockerfile
+      context: Services
+      dockerfile: Basket.Api/Presentation/Dockerfile
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
-      context: .
-      dockerfile: Services/Catalog.Api/Dockerfile
-
+      context: Services
+      dockerfile: Catalog.Api/Presentation/Dockerfile
 
   authorization.api:
     image: ${DOCKER_REGISTRY-}authorizationapi
@@ -44,6 +43,16 @@ services:
   authorization.sqlserver:
     image: mcr.microsoft.com/mssql/server
 
+  catalogdb.mongodb:
+    image: mongo
+
+  basketdb.redis:
+    image: redis:alpine
+
 volumes:
   mssql_auth:
+  mongo_data:
+
+
+
 
