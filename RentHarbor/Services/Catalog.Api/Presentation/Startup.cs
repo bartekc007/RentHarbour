@@ -39,7 +39,7 @@ namespace Catalog.Api
                 options.AddPolicy("AllowAll",
                     builder =>
                     {
-                        builder.AllowAnyOrigin()
+                        builder.AllowAnyOrigin() // http://localhost:4200
                                .AllowAnyMethod()
                                .AllowAnyHeader();
                     });
