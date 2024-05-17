@@ -8,7 +8,7 @@ namespace RentHarbor.MongoDb.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Address Address { get; set; }
@@ -17,6 +17,7 @@ namespace RentHarbor.MongoDb.Entities
         public int Bathrooms { get; set; }
         public int AreaSquareMeters { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsActive { get; set; }
         public List<BsonDocument> Photos { get; set; }
         public Property()
         {

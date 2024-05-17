@@ -2,11 +2,6 @@
 using Authorization.Persistance.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Authorization.Application.Domains.User.Login
 {
@@ -55,3 +50,5 @@ namespace Authorization.Application.Domains.User.Login
         }
     }
 }
+
+// C:\Users\barte\.aspnet\https

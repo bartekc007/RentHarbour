@@ -5,7 +5,7 @@ namespace RentHarbor.AuthService.Services
 {
     public class AuthorizationService : IAuthorizationService
     {
-        private readonly string _authorizationBaseUrl = "http://authorization.api:8002/api/User/";
+        private readonly string _authorizationBaseUrl = "http://authorization.api/api/User/";
 
         public async Task<string> GetUserIdFromTokenAsync(string jwtToken)
         {

@@ -15,4 +15,5 @@ namespace RentHarbor.MongoDb.Entities
 
         public DateTime AddedAt { get; set; }
     }
+
 }

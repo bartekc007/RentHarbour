@@ -2,6 +2,7 @@
 using Basket.Application.Domains.Basket.UpdateBasket;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RentHarbor.MongoDb.Entities;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -34,13 +35,24 @@ namespace Basket.Api.Controllers
             {
                 UserId = userId,
                 PropertyId = request.PropertyId,
-                Action = request.Action
+                Action = request.Action,
+                Name = request.Name,
+                Description = request.Description,
+                AddressStreet = request.AddressStreet,
+                AddressCity = request.AddressCity,
+                AddressState = request.AddressState,
+                AddressPostalCode = request.AddressPostalCode,
+                AddressCountry = request.AddressCountry,
+                Price = request.Price,
+                Bedrooms = request.Bedrooms,
+                Bathrooms = request.Bathrooms,
+                AreaSquareMeters = request.AreaSquareMeters,
+                IsAvailable = request.IsAvailable
             };
 
             var result = _mediator.Send(command);
 
             return Ok(new { Status = HttpStatusCode.OK });
         }
-
     }
 }

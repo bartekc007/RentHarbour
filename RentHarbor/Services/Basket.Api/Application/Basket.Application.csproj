@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domains\Basket\GetBasket\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

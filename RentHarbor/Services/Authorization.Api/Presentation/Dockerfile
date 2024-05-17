@@ -21,4 +21,5 @@ RUN dotnet publish "./Authorization.Api.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ./aspnetapp.pfx /https/aspnetapp.pfx
 ENTRYPOINT ["dotnet", "Authorization.Api.dll"]

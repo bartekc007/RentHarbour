@@ -21,4 +21,5 @@ RUN dotnet publish "./Basket.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ./aspnetapp.pfx /https/aspnetapp.pfx
 ENTRYPOINT ["dotnet", "Basket.Api.dll"]

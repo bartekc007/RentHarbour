@@ -52,6 +52,7 @@ namespace RentHarbor.MongoDb.Data
                     Bathrooms = 3,
                     AreaSquareMeters = 300,
                     IsAvailable = true,
+                    IsActive = true,
                     Photos = new List<BsonDocument>
                     {
                         /*new BsonDocument

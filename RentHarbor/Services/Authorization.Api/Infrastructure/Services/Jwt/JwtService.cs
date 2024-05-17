@@ -47,7 +47,7 @@ namespace Authorization.Infrastructure.Services.Jwt
             var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
             if (jwtToken == null)
-                return null;
+                return "";
 
             var validationParameters = new TokenValidationParameters
             {
