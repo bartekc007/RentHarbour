@@ -38,6 +38,7 @@ namespace Authorization.Application.Domains.User.Register
                 // Zwróć token JWT
                 return new RegisterResult
                 {
+                    UserName = request.UserName,
                     Token = tokenString
                 };
             }

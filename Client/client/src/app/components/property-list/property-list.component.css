@@ -1,0 +1,17 @@
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .card-container .col-6 {
+    flex: 0 0 calc(50% - 15px); /* Dwa w rzędzie, z odstępem 30px między nimi */
+    margin-bottom: 30px;
+  }
+  
+  @media (max-width: 767px) {
+    .card-container .col-6 {
+      flex: 0 0 100%; /* Jedna kolumna na ekranach o szerokości mniejszej niż 768px */
+    }
+  }

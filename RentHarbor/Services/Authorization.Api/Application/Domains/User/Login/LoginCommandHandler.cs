@@ -44,6 +44,7 @@ namespace Authorization.Application.Domains.User.Login
 
             return new LoginResult
             {
+                UserName = request.UserName,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken
             };

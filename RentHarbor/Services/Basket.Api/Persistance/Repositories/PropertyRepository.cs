@@ -62,5 +62,17 @@ namespace Basket.Persistance.Repositories
 
             return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
         }
+
+        public async Task<List<UserProperty>> GetUserPropertiesByUserIdAsync(string userId)
+        {
+            var filter = Builders<UserProperty>.Filter.Eq(up => up.UserId, userId);
+            return await _context.FollowedProperties.Find(filter).ToListAsync();
+        }
+
+        public async Task<List<Property>> GetPropertiesByIdsAsync(List<string> propertyIds)
+        {
+            var filter = Builders<Property>.Filter.In(p => p.Id, propertyIds);
+            return await _context.Properties.Find(filter).ToListAsync();
+        }
     }
 }

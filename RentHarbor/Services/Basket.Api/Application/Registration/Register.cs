@@ -1,6 +1,7 @@
 ﻿using Basket.Application.Domains.Basket.GetFollowedProperties;
 using Basket.Application.Domains.Basket.UpdateBasket;
 using Basket.Application.Domains.Basket.UpdateFollowedProperty;
+using Basket.Application.Mappings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace Basket.Application.Registration
             services.AddTransient<IRequestHandler<UpdateBasketCommand, UpdateBasketResult>, UpdateBasketCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateFollowedPropertyCommand, UpdateFollowedPropertyResult>, UpdateFollowedPropertyCommandHandler>();
             services.AddTransient<IRequestHandler<GetFollowedPropertiesQuery, GetFollowedPropertiesResult>, GetFollowedPropertiesQueryHandler>();
+            
         }
     }
 }

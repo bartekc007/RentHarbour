@@ -1,3 +1,4 @@
+using Basket.Application.Mappings;
 using Basket.Application.Registration;
 using Basket.Persistance.Registration;
 using MediatR;
@@ -8,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RentHarbor.AuthService.Registration;
+using System;
+using System.Reflection;
 
 namespace Basket.Api
 {
@@ -27,6 +30,7 @@ namespace Basket.Api
             services.RegisterApplicationLayer();
             services.RegisterAuthService();
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -9,5 +9,7 @@ namespace Basket.Persistance.Repositories
         Task<bool> RemovePropertyAsync(string id, string userId);
         Task AddUserPropertyAsync(UserProperty userProperty);
         Task<bool> RemoveUserPropertyAsync(string id, string userId);
+        Task<List<UserProperty>> GetUserPropertiesByUserIdAsync(string userId);
+        Task<List<Property>> GetPropertiesByIdsAsync(List<string> propertyIds);
     }
 }

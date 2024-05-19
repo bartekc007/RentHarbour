@@ -40,7 +40,7 @@ namespace Authorization.Api.Controllers.User
 
             // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
             HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.AccessToken);
-            return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+            return Ok(new { Data = result, Status = HttpStatusCode.OK, Message = "User registered successfully." });
         }
 
 

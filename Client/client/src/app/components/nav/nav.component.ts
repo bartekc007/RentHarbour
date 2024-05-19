@@ -10,7 +10,7 @@ export class NavComponent implements OnInit {
   model: any = {}
   loggedIn = false;
 
-  constructor(private accountService: AccountService) {}
+  constructor(public accountService: AccountService) {}
 
   ngOnInit(): void {
     
