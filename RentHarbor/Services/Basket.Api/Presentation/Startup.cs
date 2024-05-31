@@ -1,4 +1,3 @@
-using Basket.Application.Mappings;
 using Basket.Application.Registration;
 using Basket.Persistance.Registration;
 using MediatR;
@@ -9,8 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RentHarbor.AuthService.Registration;
-using System;
-using System.Reflection;
 
 namespace Basket.Api
 {
@@ -37,11 +34,22 @@ namespace Basket.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket.Api", Version = "v1" });
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin() // http://localhost:4200
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("AllowAll");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

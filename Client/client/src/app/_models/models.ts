@@ -1,3 +1,5 @@
+import { HttpStatusCode } from "@angular/common/http";
+
 export interface Property {
  id: string;
  name: string;
@@ -16,9 +18,22 @@ export interface Property {
  }
 }
 
+export interface PropertiesGetAllRequest {
+    priceMax?: number;
+    priceMin?: number;
+    bedroomsMax?: number;
+    bedroomsMin?: number;
+    bathroomsMax?: number;
+    bathroomsMin?: number;
+    areaSquareMetersMax?: number;
+    areaSquareMetersMin?: number;
+    city?: string;
+}
+
 export interface User{
     username: string;
-    token: string;
+    accessToken: string;
+    refreshToken: string
 }
 
 export interface AddressDto {
@@ -39,15 +54,31 @@ export interface PropertyDto {
     bathrooms: number;
     areaSquareMeters: number;
     isAvailable: boolean;
-    photos: BsonDocument[];
+    photos: string[];
 }
-  
+
+export enum UserPropertyAction{
+    Add,
+    Remove
+}
+
+export interface UpdateFollowedPropertiesModel{
+    propertyId: string;
+    action: UserPropertyAction
+}
 
 export interface BsonDocument {
     [key: string]: any;
 }
 
 export interface HttpResponseModel<T> {
+    status: HttpStatusCode
     data: T;
     errorMessage: string;
+}
+
+export interface PhotoDto {
+    id: number;
+    url: string;
+    isMain: boolean;
 }

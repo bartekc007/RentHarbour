@@ -40,9 +40,18 @@ namespace Authorization.Persistance.Extentions
                 City = "Kraków",
                 Country = "Polska"
             };
+            var user3 = new ApplicationUser
+            {
+                UserName = "Bartek",
+                Email = "bartek@example.com",
+                Address = "Krakowska 2",
+                City = "Kraków",
+                Country = "Polska"
+            };
 
             await userManager.CreateAsync(user1, "Password1234!");
             await userManager.CreateAsync(user2, "Password1234!");
+            await userManager.CreateAsync(user3, "Password1234!");
         }
     }
 }

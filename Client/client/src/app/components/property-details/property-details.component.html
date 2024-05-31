@@ -1,0 +1,27 @@
+<div *ngIf="property" class="property-details">
+  <!-- Zdjęcie w lewej górnej części -->
+  <div class="property-image">
+    <img [src]="property.photos[0]" alt="Property Photo" *ngIf="property.photos && property.photos.length > 0">
+  </div>
+
+  <!-- Parametry mieszkania i opis po prawej stronie -->
+  <div class="property-info">
+    <h2>{{ property.name }}</h2>
+    <div class="property-parameters">
+      <p><strong>Price:</strong> {{ property.price }}</p>
+      <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
+      <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
+      <p><strong>Area (Square Meters):</strong> {{ property.areaSquareMeters }}</p>
+    </div>
+    <p class="property-description">{{ property.description }}</p>
+  </div>
+</div>
+
+<!-- Pasek ze zdjęciami na dole -->
+<div *ngIf="property" class="property-thumbnails">
+  <div class="thumbnail-container">
+    <div class="thumbnail" *ngFor="let photo of property.photos; let i = index" (click)="openModal(property.photos, i)">
+      <img [src]="photo" alt="Thumbnail Photo">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.property-details {
+  display: flex;
+}
+
+.property-image {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.property-info {
+  flex: 2;
+}
+
+.property-parameters {
+  margin-bottom: 20px;
+}
+
+.property-description {
+  margin-top: 20px;
+}
+
+.property-thumbnails {
+  display: flex;
+  overflow-x: auto;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 20px; /* Zwiększ odstęp między miniaturami */
+  overflow-x: auto; /* Dodaj poziome przewijanie, jeśli miniatury nie mieszczą się na ekranie */
+}
+
+.thumbnail {
+  cursor: pointer;
+  border: 2px solid #ccc; /* Dodaj ramkę wokół miniatur */
+  border-radius: 5px; /* Dodaj zaokrąglenie ramki */
+  padding: 5px; /* Dodaj odstęp wewnątrz ramki */
+}
+
+.thumbnail img {
+  max-width: 100px; /* Ustaw maksymalną szerokość miniatury */
+  max-height: 100px; /* Ustaw maksymalną wysokość miniatury */
+  border-radius: 3px; /* Dodaj zaokrąglenie krawędzi miniatury */
+}

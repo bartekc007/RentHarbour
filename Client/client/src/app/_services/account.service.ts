@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpResponseModel, User } from '../_models/models';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
-import { map } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,13 @@ export class AccountService {
    setCurrentUser(user: User) {
     localStorage.setItem('user',JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  getCurrentUserToken(): Observable<string | null> {
+    return this.currentUser$.pipe(
+      take(1),
+      map(user => user?.accessToken || null)
+    );
   }
 
   logout() {

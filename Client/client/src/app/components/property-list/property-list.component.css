@@ -15,3 +15,11 @@
       flex: 0 0 100%; /* Jedna kolumna na ekranach o szerokości mniejszej niż 768px */
     }
   }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }

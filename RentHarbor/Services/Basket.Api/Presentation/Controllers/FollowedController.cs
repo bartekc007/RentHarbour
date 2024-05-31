@@ -40,9 +40,9 @@ namespace Basket.Api.Controllers
                 Id = request.Id
             };
 
-            var result = _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return Ok(new { Status = HttpStatusCode.OK });
+            return Ok(new { Status = HttpStatusCode.OK, Data = result.Success });
         }
 
         [HttpPost("getAll")]

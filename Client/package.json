@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/material": "^12.2.13",
+    "ngx-gallery": "^5.10.0"
+  }
+}

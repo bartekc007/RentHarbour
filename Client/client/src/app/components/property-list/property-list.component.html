@@ -1,11 +1,84 @@
 <div class="container">
-    <div class="row">
+  <div class="row">
+    <!-- Left column for filters -->
+    <div class="col-md-3">
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+        <div class="form-group">
+          <label for="priceMin">Min Price</label>
+          <input type="number" class="form-control" formControlName="priceMin" id="priceMin" placeholder="Min Price">
+          <div *ngIf="searchForm.get('priceMin')?.hasError('min') && searchForm.get('priceMin')?.touched" class="text-danger">
+            Min Price cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="priceMax">Max Price</label>
+          <input type="number" class="form-control" formControlName="priceMax" id="priceMax" placeholder="Max Price">
+          <div *ngIf="searchForm.get('priceMax')?.hasError('min') && searchForm.get('priceMax')?.touched" class="text-danger">
+            Max Price cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bedroomsMin">Min Bedrooms</label>
+          <input type="number" class="form-control" formControlName="bedroomsMin" id="bedroomsMin" placeholder="Min Bedrooms">
+          <div *ngIf="searchForm.get('bedroomsMin')?.hasError('min') && searchForm.get('bedroomsMin')?.touched" class="text-danger">
+            Min Bedrooms cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bedroomsMax">Max Bedrooms</label>
+          <input type="number" class="form-control" formControlName="bedroomsMax" id="bedroomsMax" placeholder="Max Bedrooms">
+          <div *ngIf="searchForm.get('bedroomsMax')?.hasError('min') && searchForm.get('bedroomsMax')?.touched" class="text-danger">
+            Max Bedrooms cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bathroomsMin">Min Bathrooms</label>
+          <input type="number" class="form-control" formControlName="bathroomsMin" id="bathroomsMin" placeholder="Min Bathrooms">
+          <div *ngIf="searchForm.get('bathroomsMin')?.hasError('min') && searchForm.get('bathroomsMin')?.touched" class="text-danger">
+            Min Bathrooms cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bathroomsMax">Max Bathrooms</label>
+          <input type="number" class="form-control" formControlName="bathroomsMax" id="bathroomsMax" placeholder="Max Bathrooms">
+          <div *ngIf="searchForm.get('bathroomsMax')?.hasError('min') && searchForm.get('bathroomsMax')?.touched" class="text-danger">
+            Max Bathrooms cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="areaSquareMetersMin">Min Area (sqm)</label>
+          <input type="number" class="form-control" formControlName="areaSquareMetersMin" id="areaSquareMetersMin" placeholder="Min Area">
+          <div *ngIf="searchForm.get('areaSquareMetersMin')?.hasError('min') && searchForm.get('areaSquareMetersMin')?.touched" class="text-danger">
+            Min Area cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="areaSquareMetersMax">Max Area (sqm)</label>
+          <input type="number" class="form-control" formControlName="areaSquareMetersMax" id="areaSquareMetersMax" placeholder="Max Area">
+          <div *ngIf="searchForm.get('areaSquareMetersMax')?.hasError('min') && searchForm.get('areaSquareMetersMax')?.touched" class="text-danger">
+            Max Area cannot be negative.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" class="form-control" formControlName="city" id="city" placeholder="City">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">Search</button>
+      </form>
+      <div *ngIf="searchForm.hasError('rangeInvalid')" class="text-danger mt-2">
+        Minimum values cannot be greater than maximum values.
+      </div>
+    </div>
+
+    <!-- Right column for property list -->
+    <div class="col-md-9">
       <div class="card-container">
         <div *ngIf="properties">
-          <div *ngFor="let property of properties" class="col-6">
+          <div *ngFor="let property of properties" class="col-12 col-md-6 mb-3">
             <app-property-card [property]="property"></app-property-card>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

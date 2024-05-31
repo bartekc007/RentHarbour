@@ -20,17 +20,16 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<GetPropertiesResult>> GetProperties()
+        public async Task<ActionResult<GetPropertiesResult>> GetProperties([FromQuery] GetPropertiesQuery query)
         {
-            var query = new GetPropertiesQuery();
             var result = await _mediator.Send(query);
 
             if (result.Data == null || result.Data.Count == 0)
             {
-                return NoContent();
+                return Ok(new { Status = HttpStatusCode.NoContent, Data = result.Data });
             }
 
-            return Ok(new {Status = HttpStatusCode.OK, result.Data });
+            return Ok(new {Status = HttpStatusCode.OK, Data = result.Data });
         }
 
         [HttpGet("{id}")]
@@ -46,7 +45,7 @@ namespace Catalog.Api.Controllers
                     return NotFound();
                 }
 
-                return Ok(new { Status = HttpStatusCode.OK, result });
+                return Ok(new { Status = HttpStatusCode.OK, Data = result });
             }
             catch (Exception ex)
             {

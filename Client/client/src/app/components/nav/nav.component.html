@@ -2,22 +2,24 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Carousel</a>
       
-        <!-- <ul class="navbar-nav mr-auto"> 
+        <ul class="navbar-nav mr-auto"> 
             <ng-container *ngIf="loggedIn">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink='/members' routerLinkActive="active">Matches</a>
+                    <a class="nav-link" routerLink='' routerLinkActive="active">View Properties</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink='/lists' routerLinkActive="active">Lists</a>
-                </li>
+                <li class="nav-item dropdown" dropdown>
+                    <a class="nav-link dropdown-toggle" dropdownToggle routerLinkActive="active">Your Properties</a>
+                    <div class="dropdown-menu" *dropdownMenu>
+                      <a routerLink='member/edit' class="dropdown-item">Edit Profile</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="logout()">Logout</a>
+                    </div>
+                  </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/messages' routerLinkActive="active">Messages</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink='/errors' routerLinkActive="active">errors</a>
-                </li>
             </ng-container>
-        </ul> -->
+        </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <img src="" alt="{{user.username}}">

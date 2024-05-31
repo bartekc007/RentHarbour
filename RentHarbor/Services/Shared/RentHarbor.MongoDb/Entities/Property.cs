@@ -12,7 +12,7 @@ namespace RentHarbor.MongoDb.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public Address Address { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public int AreaSquareMeters { get; set; }

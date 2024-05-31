@@ -38,7 +38,7 @@ namespace RentHarbor.MongoDb.Data
                 new Property
                 {
                     Name = "Spacious Villa",
-                    Description = "Beautiful villa with a large garden",
+                    Description = "Beautiful Large villa with a large garden",
                     Address = new Address
                     {
                         Street = "123 Main Street",
@@ -47,10 +47,10 @@ namespace RentHarbor.MongoDb.Data
                         PostalCode = "10001",
                         Country = "USA"
                     },
-                    Price = 1000000,
+                    Price = 1100,
                     Bedrooms = 5,
                     Bathrooms = 3,
-                    AreaSquareMeters = 300,
+                    AreaSquareMeters = 130,
                     IsAvailable = true,
                     IsActive = true,
                     Photos = new List<BsonDocument>
@@ -69,7 +69,108 @@ namespace RentHarbor.MongoDb.Data
                         }*/
                     }
                 },
-                // Add more properties as needed
+                new Property
+                {
+                    Name = "Medium Villa",
+                    Description = "Beautiful villa with a medium garden",
+                    Address = new Address
+                    {
+                        Street = "123 Main Street",
+                        City = "Warszawa",
+                        State = "Warszawa",
+                        PostalCode = "10001",
+                        Country = "Polska"
+                    },
+                    Price = 1000,
+                    Bedrooms = 3,
+                    Bathrooms = 1,
+                    AreaSquareMeters = 66,
+                    IsAvailable = true,
+                    IsActive = true,
+                    Photos = new List<BsonDocument>
+                    {
+                        /*new BsonDocument
+                        {
+                            { "Name", "photo1.jpg" },
+                            { "Data", new BsonBinaryData(imageData1) },
+                            { "ContentType", "image/jpeg" }
+                        },
+                        new BsonDocument
+                        {
+                            { "Name", "photo2.jpg" },
+                            { "Data", new BsonBinaryData(imageData2) },
+                            { "ContentType", "image/jpeg" }
+                        }*/
+                    }
+                },
+                new Property
+                {
+                    Name = "Smal Apratment",
+                    Description = "Beautiful small apartment without garden",
+                    Address = new Address
+                    {
+                        Street = "117 Main Street",
+                        City = "Kraków",
+                        State = "Kraków",
+                        PostalCode = "10001",
+                        Country = "Polska"
+                    },
+                    Price = 900,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                    AreaSquareMeters = 45,
+                    IsAvailable = true,
+                    IsActive = true,
+                    Photos = new List<BsonDocument>
+                    {
+                        /*new BsonDocument
+                        {
+                            { "Name", "photo1.jpg" },
+                            { "Data", new BsonBinaryData(imageData1) },
+                            { "ContentType", "image/jpeg" }
+                        },
+                        new BsonDocument
+                        {
+                            { "Name", "photo2.jpg" },
+                            { "Data", new BsonBinaryData(imageData2) },
+                            { "ContentType", "image/jpeg" }
+                        }*/
+                    }
+                },
+                new Property
+                {
+                    Name = "Medium Villa",
+                    Description = "Beautiful villa with a medium garden",
+                    Address = new Address
+                    {
+                        Street = "125 Main Street",
+                        City = "Kraków",
+                        State = "Kraków",
+                        PostalCode = "10001",
+                        Country = "Polska"
+                    },
+                    Price = 1000,
+                    Bedrooms = 3,
+                    Bathrooms = 1,
+                    AreaSquareMeters = 66,
+                    IsAvailable = true,
+                    IsActive = true,
+                    Photos = new List<BsonDocument>
+                    {
+                        /*new BsonDocument
+                        {
+                            { "Name", "photo1.jpg" },
+                            { "Data", new BsonBinaryData(imageData1) },
+                            { "ContentType", "image/jpeg" }
+                        },
+                        new BsonDocument
+                        {
+                            { "Name", "photo2.jpg" },
+                            { "Data", new BsonBinaryData(imageData2) },
+                            { "ContentType", "image/jpeg" }
+                        }*/
+                    }
+                },
             };
 
             return properties;
