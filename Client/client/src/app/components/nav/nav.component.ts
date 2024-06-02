@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class NavComponent implements OnInit {
   model: any = {}
   loggedIn = false;
 
-  constructor(public accountService: AccountService) {}
+  constructor(public accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
     this.accountService.getCurrentUserToken().subscribe(data=>{
@@ -34,4 +35,7 @@ export class NavComponent implements OnInit {
     this.loggedIn = false;
   }
 
+  register() {
+    this.router.navigate(['register']);
+  }
 }

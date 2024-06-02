@@ -22,6 +22,12 @@ namespace Authorization.Persistance.Context
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.Property(e => e.AccessFailedCount).HasDefaultValue(0);
+                entity.Property(e => e.LockoutEnd).HasColumnType("datetime");
+            });
         }
 
         /* volumes:

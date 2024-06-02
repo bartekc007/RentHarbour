@@ -32,15 +32,12 @@ namespace Authorization.Application.Domains.User.Register
 
             if (result.Succeeded)
             {
-                // Wygeneruj token JWT
-                var tokenString = _jwtService.GenerateAccessToken(user);
-
-                // Zwróć token JWT
                 return new RegisterResult
                 {
-                    UserName = request.UserName,
-                    Token = tokenString
-                };
+                    Username = request.UserName,
+                    AccessToken = _jwtService.GenerateAccessToken(user),
+                    ReffreshToken = _jwtService.GenerateRefreshToken()
+            };
             }
             else
             {

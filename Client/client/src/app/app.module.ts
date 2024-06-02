@@ -13,6 +13,7 @@ import { PropertyDetailsComponent } from './components/property-details/property
 import { PhotoModalComponent } from './components/photo-modal/photo-modal.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     PropertyListComponent,
     PropertyCardComponent,
     PropertyDetailsComponent,
-    PhotoModalComponent
+    PhotoModalComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

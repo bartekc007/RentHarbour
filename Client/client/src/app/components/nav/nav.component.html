@@ -10,9 +10,11 @@
                 <li class="nav-item dropdown" dropdown>
                     <a class="nav-link dropdown-toggle" dropdownToggle routerLinkActive="active">Your Properties</a>
                     <div class="dropdown-menu" *dropdownMenu>
-                      <a routerLink='member/edit' class="dropdown-item">Edit Profile</a>
+                      <a routerLink='member/edit' class="dropdown-item">Followed properties</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" (click)="logout()">Logout</a>
+                      <a class="dropdown-item" (click)="logout()">My properties</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="logout()">My offers</a>
                     </div>
                   </li>
                 <li class="nav-item">
@@ -31,7 +33,7 @@
             </div>
         </div>
 
-        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0" (ngSubmit)="login()" autocomplete="off">
+        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="form-inline mt-2 mt-md-0 d-flex flex-row" (ngSubmit)="login()" autocomplete="off">
             <input 
                 name="username"
                 [(ngModel)]="model.username" 
@@ -46,7 +48,8 @@
                 type="password" 
                 placeholder="Password" 
                 style="margin-right: 1ch">
-            <button class="btn btn-success" type="submit">Login</button>
+            <button class="btn btn-success me-2" type="submit">Login</button>
+            <button class="btn btn-success" (click)="register()">Register</button>
         </form>
     </div>
   </nav>

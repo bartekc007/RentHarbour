@@ -14,16 +14,13 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
-   login(model: any) {
-    return this.http.post(this.baseUrl + 'User/login', model).pipe(
-      map((response: any) => {
-        const user = response.data;
-        if(user) {
-          this.setCurrentUser(user);
-        }
-      })
-    )
-   }
+  login(model: any): Observable<HttpResponseModel<User>> {
+    return this.http.post<HttpResponseModel<User>>(this.baseUrl + 'User/login', model);
+  }
+
+   register(model: any): Observable<HttpResponseModel<User>> {
+    return this.http.post<HttpResponseModel<User>>(this.baseUrl + 'User/register', model);
+  }
 
    setCurrentUser(user: User) {
     localStorage.setItem('user',JSON.stringify(user));

@@ -36,6 +36,17 @@ export interface User{
     refreshToken: string
 }
 
+export interface UserRegisterRequest {
+    userName: string;
+    email: string;
+    password: string;
+    phoneNumber: string;
+    dateOfBirth: Date;
+    address: string;
+    city: string;
+    country: string;
+  }
+
 export interface AddressDto {
     street: string;
     city: string;

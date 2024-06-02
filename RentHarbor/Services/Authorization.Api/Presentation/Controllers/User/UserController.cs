@@ -29,8 +29,7 @@ namespace Authorization.Api.Controllers.User
             var result = await mediator.Send(command);
             
             // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
-            HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.Token);
-            return Ok(new { Status = HttpStatusCode.OK, Message = "User registered successfully." });
+            return Ok(new { Data = result, Status = HttpStatusCode.OK, Message = "User registered successfully." });
         }
 
         [HttpPost("login")]

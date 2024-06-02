@@ -9,5 +9,7 @@ namespace Authorization.Persistance.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public string? RefreshToken { get; set; }
+        public int AccessFailedCount { get; set; }
+        public DateTime? LockoutEnd { get; set; }
     }
 }
