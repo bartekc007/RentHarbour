@@ -1,0 +1,16 @@
+<div class="offer-details">
+    <h2>Offer Details</h2>
+    <div><strong>Start Date:</strong> {{ offer?.startDate | date }}</div>
+    <div><strong>End Date:</strong> {{ offer?.endDate | date }}</div>
+    <div><strong>Number of People:</strong> {{ offer?.numberOfPeople }}</div>
+    <div><strong>Pets:</strong> {{ offer?.pets ? 'Yes' : 'No' }}</div>
+    <div><strong>Status:</strong> {{ offer?.status }}</div>
+    <div><strong>Property Name:</strong> {{ offer?.propertyName }}</div>
+    <div><strong>Street:</strong> {{ offer?.propertyStreet }}</div>
+    <div><strong>City:</strong> {{ offer?.propertyCity }}</div>
+    <div><strong>State:</strong> {{ offer?.propertyState }}</div>
+    <div><strong>Postal Code:</strong> {{ offer?.propertyPostalCode }}</div>
+    <div><strong>Country:</strong> {{ offer?.propertyCountry }}</div>
+    <div><strong>Available:</strong> {{ offer?.isAvailable ? 'Yes' : 'No' }}</div>
+    <div><strong>Active:</strong> {{ offer?.isActive ? 'Yes' : 'No' }}</div>
+  </div>

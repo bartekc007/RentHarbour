@@ -93,3 +93,31 @@ export interface PhotoDto {
     url: string;
     isMain: boolean;
 }
+
+export interface RentalRequest {
+    propertyId: string;
+    startDate: Date;
+    endDate: Date;
+    numberOfPeople: number;
+    pets: boolean;
+    messageToOwner: string;
+}
+
+export interface RentalOffer {
+    id: number;
+    propertyId: string;  // MongoDB Property ID
+    startDate: Date;
+    endDate: Date;
+    numberOfPeople: number;
+    pets: boolean;
+    messageToOwner: string;
+    status: string;  // e.g., Pending, Approved, Rejected
+    propertyName: string;
+    propertyStreet: string;
+    propertyCity: string;
+    propertyState: string;
+    propertyPostalCode: string;
+    propertyCountry: string;
+    isAvailable: boolean;
+    isActive: boolean;
+}

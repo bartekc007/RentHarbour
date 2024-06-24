@@ -1,6 +1,5 @@
 ﻿using Basket.Api.Requests;
 using Basket.Application.Domains.Basket.GetFollowedProperties;
-using Basket.Application.Domains.Basket.UpdateBasket;
 using Basket.Application.Domains.Basket.UpdateFollowedProperty;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

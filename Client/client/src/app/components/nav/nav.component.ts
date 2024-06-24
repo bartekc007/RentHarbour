@@ -25,6 +25,7 @@ export class NavComponent implements OnInit {
       next: response => {
         console.log(response);
         this.loggedIn = true;
+        this.accountService.setCurrentUser(response.data);
       },
       error: error => console.log(error)
     })

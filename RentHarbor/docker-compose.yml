@@ -19,6 +19,11 @@ services:
       context: .
       dockerfile: Services/Authorization.Api/Presentation/Dockerfile
 
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.Api/Ordering.Api/Dockerfile
 
   communication.api:
     image: ${DOCKER_REGISTRY-}communicationapi
@@ -26,19 +31,11 @@ services:
       context: .
       dockerfile: Services/Communication.Api/Dockerfile
 
-
   document.api:
     image: ${DOCKER_REGISTRY-}documentapi
     build:
       context: .
       dockerfile: Services/Document.Api/Dockerfile
-
-
-  ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
-    build:
-      context: .
-      dockerfile: Services/Ordering.Api/Dockerfile
 
   authorization.sqlserver:
     image: mcr.microsoft.com/mssql/server
@@ -46,12 +43,15 @@ services:
   catalogdb.mongodb:
     image: mongo
 
-  basketdb.redis:
-    image: redis:alpine
+  orderdb.postgres:
+    image: postgres
 
 volumes:
   mssql_auth:
   mongo_data:
+  postgres_data:
+
+
 
 
 

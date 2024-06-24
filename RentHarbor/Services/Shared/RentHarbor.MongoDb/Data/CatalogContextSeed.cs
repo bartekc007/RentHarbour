@@ -37,6 +37,7 @@ namespace RentHarbor.MongoDb.Data
             {
                 new Property
                 {
+                    UserId = "6151b2c2-f9bb-4a91-8b74-2ee834090da3",
                     Name = "Spacious Villa",
                     Description = "Beautiful Large villa with a large garden",
                     Address = new Address
@@ -71,6 +72,7 @@ namespace RentHarbor.MongoDb.Data
                 },
                 new Property
                 {
+                    UserId = "6151b2c2-f9bb-4a91-8b74-2ee834090da3",
                     Name = "Medium Villa",
                     Description = "Beautiful villa with a medium garden",
                     Address = new Address
@@ -105,6 +107,7 @@ namespace RentHarbor.MongoDb.Data
                 },
                 new Property
                 {
+                    UserId = "6151b2c2-f9bb-4a91-8b74-2ee834090da3",
                     Name = "Smal Apratment",
                     Description = "Beautiful small apartment without garden",
                     Address = new Address
@@ -139,6 +142,7 @@ namespace RentHarbor.MongoDb.Data
                 },
                 new Property
                 {
+                    UserId = "6151b2c2-f9bb-4a91-8b74-2ee834090da3",
                     Name = "Medium Villa",
                     Description = "Beautiful villa with a medium garden",
                     Address = new Address

@@ -6,22 +6,91 @@
 
   <!-- Parametry mieszkania i opis po prawej stronie -->
   <div class="property-info">
-    <h2>{{ property.name }}</h2>
-    <div class="property-parameters">
-      <p><strong>Price:</strong> {{ property.price }}</p>
-      <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
-      <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
-      <p><strong>Area (Square Meters):</strong> {{ property.areaSquareMeters }}</p>
+    <div class="row align-items-start">
+      <div class="col-md-8">
+        <h2>{{ property.name }}</h2>
+        <div class="property-parameters">
+          <p><strong>Price:</strong> {{ property.price }}</p>
+          <p><strong>Bedrooms:</strong> {{ property.bedrooms }}</p>
+          <p><strong>Bathrooms:</strong> {{ property.bathrooms }}</p>
+          <p><strong>Area (Square Meters):</strong> {{ property.areaSquareMeters }}</p>
+        </div>
+        <p class="property-description">{{ property.description }}</p>
+      </div>
+      <div class="col-md-4 d-flex flex-column">
+        <!-- Przycisk Rental Request -->
+        <button class="btn btn-primary mb-3" (click)="toggleRentalForm()">Rental Request</button>
+      </div>
     </div>
-    <p class="property-description">{{ property.description }}</p>
   </div>
 </div>
 
 <!-- Pasek ze zdjęciami na dole -->
-<div *ngIf="property" class="property-thumbnails">
+<div *ngIf="property" class="property-thumbnails mb-4">
   <div class="thumbnail-container">
     <div class="thumbnail" *ngFor="let photo of property.photos; let i = index" (click)="openModal(property.photos, i)">
       <img [src]="photo" alt="Thumbnail Photo">
     </div>
   </div>
 </div>
+
+<!-- Formularz wynajmu -->
+<div *ngIf="showRentalForm">
+  <div class="rental-form mb-4">
+    <form [formGroup]="rentalForm" (ngSubmit)="sendRentalRequest()">
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <label *ngIf="startDateError" class="invalid-feedback">
+          Start Date is required.
+        </label>
+        <label *ngIf="startDatePastError" class="invalid-feedback">
+          Start Date cannot be in the past.
+        </label>
+        <input type="date" class="form-control" id="startDate" formControlName="startDate" required>
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <label *ngIf="endDateError" class="invalid-feedback">
+          End Date is required.
+        </label>
+        <label *ngIf="endDatePastError" class="invalid-feedback">
+          End Date cannot be in the past.
+        </label>
+        <label *ngIf="endDateLessError" class="invalid-feedback">
+          End Date must be after Start Date.
+        </label>
+        <input type="date" class="form-control" id="endDate" formControlName="endDate" required>
+      </div>
+      <div class="form-group">
+        <label for="numberOfPeople">Number of People</label>
+        <label *ngIf="numberOfPeopleError" class="invalid-feedback">
+          Number of People is required and must be non-negative.
+        </label>
+        <input type="number" class="form-control" id="numberOfPeople" formControlName="numberOfPeople" required min="0">
+        
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="hasPets" formControlName="hasPets">
+        <label class="form-check-label" for="hasPets">Pets Allowed</label>
+      </div>
+
+      <div class="form-group">
+        <label for="messageToOwner">Message to Owner (max 400 characters)</label>
+        <textarea class="form-control" id="messageToOwner" formControlName="messageToOwner" rows="5" maxlength="400"></textarea>
+        <small class="text-right d-block"><span id="charCount">{{ rentalForm.get('messageToOwner')?.value ? rentalForm.get('messageToOwner')?.value.length : 0 }}</span>/400 characters</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send Request</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

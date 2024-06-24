@@ -8,8 +8,8 @@ import { AccountService } from './account.service';
   providedIn: 'root'
 })
 export class PropertyService {
-  baseUrl = "http://localhost:8002/api/";
-  baseUrl2 = "http://localhost:8001/api/";
+  
+  baseUrl = "http://localhost:8001/api/";
 
   constructor(private http: HttpClient, private accountService: AccountService) { }
 
@@ -22,6 +22,6 @@ export class PropertyService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${currentToken}`
     });
-    return this.http.post<HttpResponseModel<boolean>>(this.baseUrl2 + 'Followed/update', model, {headers});
+    return this.http.post<HttpResponseModel<boolean>>(this.baseUrl + 'Followed/update', model, {headers});
    }
 }

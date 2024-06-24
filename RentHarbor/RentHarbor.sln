@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{73
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{35F15780-CCEC-4A53-A129-153587999657}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Api", "Services\Ordering.Api\Ordering.Api.csproj", "{AFC0756C-5F8D-4A82-8C48-038F5A2C2312}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Communication.Api", "Services\Communication.Api\Communication.Api.csproj", "{2D510BD3-777E-4BED-A40A-A29CDE5336CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Document.Api", "Services\Document.Api\Document.Api.csproj", "{2A25150C-2D7C-43D8-9746-E170B89DE152}"
@@ -35,15 +33,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{4C960B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.Api", "Services\Basket.Api\Presentation\Basket.Api.csproj", "{57BCA6B0-D436-41E7-AD4D-EE850B49E45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Application", "Services\Basket.Api\Application\Basket.Application.csproj", "{35F89F13-B2DF-4080-BFFA-C9CE2FF0A41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.Application", "Services\Basket.Api\Application\Basket.Application.csproj", "{35F89F13-B2DF-4080-BFFA-C9CE2FF0A41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Persistance", "Services\Basket.Api\Persistance\Basket.Persistance.csproj", "{D115CF00-5663-435C-8E35-77285C8A02E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.Persistance", "Services\Basket.Api\Persistance\Basket.Persistance.csproj", "{D115CF00-5663-435C-8E35-77285C8A02E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3911ED23-D589-495C-937B-5A0B9D7C0DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentHarbor.MongoDb", "Services\Shared\RentHarbor.MongoDb\RentHarbor.MongoDb.csproj", "{152CA900-EA0E-4AF6-AEB1-1813DEFF402B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentHarbor.MongoDb", "Services\Shared\RentHarbor.MongoDb\RentHarbor.MongoDb.csproj", "{152CA900-EA0E-4AF6-AEB1-1813DEFF402B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentHarbor.AuthService", "Services\Shared\RentHarbor.AuthService\RentHarbor.AuthService.csproj", "{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentHarbor.AuthService", "Services\Shared\RentHarbor.AuthService\RentHarbor.AuthService.csproj", "{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{F916DE94-C8C4-4C5A-A400-08884AF05FB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "Services\Ordering\Ordering.Application\Ordering.Application.csproj", "{C623235F-527A-41B4-8909-E7D40FE72CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Persistance", "Services\Ordering\Ordering.Persistance\Ordering.Persistance.csproj", "{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Api", "Services\Ordering\Ordering.Api\Ordering.Api\Ordering.Api.csproj", "{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +61,6 @@ Global
 		{35F15780-CCEC-4A53-A129-153587999657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F15780-CCEC-4A53-A129-153587999657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F15780-CCEC-4A53-A129-153587999657}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFC0756C-5F8D-4A82-8C48-038F5A2C2312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFC0756C-5F8D-4A82-8C48-038F5A2C2312}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFC0756C-5F8D-4A82-8C48-038F5A2C2312}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFC0756C-5F8D-4A82-8C48-038F5A2C2312}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D510BD3-777E-4BED-A40A-A29CDE5336CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D510BD3-777E-4BED-A40A-A29CDE5336CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D510BD3-777E-4BED-A40A-A29CDE5336CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -115,12 +117,23 @@ Global
 		{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C623235F-527A-41B4-8909-E7D40FE72CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C623235F-527A-41B4-8909-E7D40FE72CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C623235F-527A-41B4-8909-E7D40FE72CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C623235F-527A-41B4-8909-E7D40FE72CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AFC0756C-5F8D-4A82-8C48-038F5A2C2312} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
 		{2D510BD3-777E-4BED-A40A-A29CDE5336CC} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
 		{2A25150C-2D7C-43D8-9746-E170B89DE152} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
 		{EB331301-E0CB-44D4-B8C6-82BD95541967} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
@@ -139,6 +152,10 @@ Global
 		{3911ED23-D589-495C-937B-5A0B9D7C0DF3} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
 		{152CA900-EA0E-4AF6-AEB1-1813DEFF402B} = {3911ED23-D589-495C-937B-5A0B9D7C0DF3}
 		{6610014C-DE3C-4A4B-BAC7-9B0EDE5AEB97} = {3911ED23-D589-495C-937B-5A0B9D7C0DF3}
+		{F916DE94-C8C4-4C5A-A400-08884AF05FB2} = {7329E001-5845-49B5-9D78-6C8E5BFC6883}
+		{C623235F-527A-41B4-8909-E7D40FE72CEF} = {F916DE94-C8C4-4C5A-A400-08884AF05FB2}
+		{3EFE5894-EF8F-4B8B-9230-8E629F4AAA9A} = {F916DE94-C8C4-4C5A-A400-08884AF05FB2}
+		{716EFE4D-B46B-472B-8AD5-8E0358CA3CA5} = {F916DE94-C8C4-4C5A-A400-08884AF05FB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E39498D-E901-416F-9345-DD1F132D0333}

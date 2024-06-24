@@ -22,6 +22,7 @@
 .property-thumbnails {
   display: flex;
   overflow-x: auto;
+  margin-bottom: 20px; /* Dodatkowy margines na dole paska ze zdjęciami */
 }
 
 .thumbnail-container {
@@ -41,4 +42,27 @@
   max-width: 100px; /* Ustaw maksymalną szerokość miniatury */
   max-height: 100px; /* Ustaw maksymalną wysokość miniatury */
   border-radius: 3px; /* Dodaj zaokrąglenie krawędzi miniatury */
+}
+
+.rental-form {
+  max-width: 600px; /* Maksymalna szerokość formularza */
+  margin: 0 auto; /* Wycentrowanie formularza */
+  padding: 15px; /* Dodatkowy padding dla wyglądu */
+}
+
+.rental-form textarea {
+  resize: vertical; /* Umożliwia pionowe rozszerzanie pola textarea */
+}
+
+.rental-form .form-group {
+  margin-bottom: 15px; /* Dodatkowy margines między polami */
+}
+
+.rental-form #charCount {
+  font-weight: bold;
+}
+
+.invalid-feedback {
+  color: red;
+  display: block;
 }

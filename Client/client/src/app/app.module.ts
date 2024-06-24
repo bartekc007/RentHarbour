@@ -14,6 +14,9 @@ import { PhotoModalComponent } from './components/photo-modal/photo-modal.compon
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import { ToastrModule } from 'ngx-toastr';
+import { OfferListComponent } from './components/offer-list/offer-list.component';
+import { OfferDetailsComponent } from './components/offer-details/offer-details.component';
 
 @NgModule({
   declarations: [
@@ -23,16 +26,23 @@ import { RegisterComponent } from './components/register/register.component';
     PropertyCardComponent,
     PropertyDetailsComponent,
     PhotoModalComponent,
-    RegisterComponent
+    RegisterComponent,
+    OfferListComponent,
+    OfferDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, // Importuj BrowserAnimationsModule
     ReactiveFormsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right', // Zmień na toast-top-right
+      preventDuplicates: true,
+    })  // Importuj ToastrModule z domyślną konfiguracją
   ],
   providers: [BsModalService ],
   bootstrap: [AppComponent]
