@@ -36,4 +36,17 @@ export class RentalService {
     });
     return this.http.get<HttpResponseModel<RentalOffer[]>>(this.baseUrl + 'RentalRequests',{headers});
   }
+
+  getRentalOffer(offerId: string): Observable<HttpResponseModel<RentalOffer>> {
+    let currentToken: string = "";
+    this.accountService.getCurrentUserToken().subscribe(token => {
+      if(token != null)
+        currentToken = token;
+    });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`
+    });
+    return this.http.get<HttpResponseModel<RentalOffer>>(this.baseUrl + `RentalRequests/${offerId}`, { headers });
+  }
+  
 }

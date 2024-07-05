@@ -64,6 +64,24 @@ namespace Ordering.Api.Controllers
             var rentalRequests = await _mediator.Send(query);
             return Ok(new { Data = rentalRequests.Data, Status = HttpStatusCode.OK });
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRentalRequest([FromQuery] string offerId)
+        {
+            string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
+            JsonDocument doc = JsonDocument.Parse(userIdJson);
+
+            JsonElement root = doc.RootElement;
+            string userId = root.GetProperty("userId").GetString();
+
+            var query = new GetRentalRequestsQuery { OwnerId = userId };
+            var rentalRequest = await _mediator.Send(query);
+            if (rentalRequest.Data == null)
+                return Ok(new { message = "Rental request not found", Status = HttpStatusCode.NotFound });
+            
+            return Ok(new { Data = rentalRequest.Data, Status = HttpStatusCode.OK });
+        }
     }
 
 }

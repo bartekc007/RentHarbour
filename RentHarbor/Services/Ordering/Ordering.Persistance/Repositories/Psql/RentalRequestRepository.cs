@@ -1,7 +1,6 @@
 ﻿using Npgsql;
 using Ordering.Persistance.Entities;
 using Ordering.Persistance.Repositories.Psql;
-using Dapper;
 
 public class RentalRequestRepository : IRentalRequestRepository
 {
@@ -38,6 +37,42 @@ public class RentalRequestRepository : IRentalRequestRepository
 
         return id;
     }
+
+    public async Task<RentalRequest> GetRentalRequestByOwnerIdAndOfferIdAsync(string ownerId, string offerId)
+    {
+        var query = @"
+        SELECT rr.* FROM RentalRequests rr
+        WHERE rr.UserId = @OwnerId AND rr.Id = @OfferId";
+
+        var command = new NpgsqlCommand(query, _connection);
+        command.Parameters.AddWithValue("@OwnerId", ownerId);
+        command.Parameters.AddWithValue("@OfferId", offerId);
+
+        await _connection.OpenAsync();
+        var reader = await command.ExecuteReaderAsync();
+
+        RentalRequest rentalRequest = null;
+        if (await reader.ReadAsync())
+        {
+            rentalRequest = new RentalRequest
+            {
+                Id = reader.GetInt32(0),
+                PropertyId = reader.GetString(1),
+                TenantId = reader.GetString(2),
+                UserId = reader.GetString(3),
+                StartDate = reader.GetDateTime(4),
+                EndDate = reader.GetDateTime(5),
+                NumberOfPeople = reader.GetInt32(6),
+                Pets = reader.GetBoolean(7),
+                MessageToOwner = reader.IsDBNull(8) ? null : reader.GetString(8),
+                Status = reader.GetString(9)
+            };
+        }
+
+        await _connection.CloseAsync();
+        return rentalRequest;
+    }
+
 
     public async Task<List<RentalRequest>> GetRentalRequestsByOwnerIdAsync(string ownerId)
     {

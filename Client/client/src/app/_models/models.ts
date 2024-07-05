@@ -121,3 +121,8 @@ export interface RentalOffer {
     isAvailable: boolean;
     isActive: boolean;
 }
+
+export interface RentalDocumentRequest {
+    offerId: string; 
+    file: File;
+}

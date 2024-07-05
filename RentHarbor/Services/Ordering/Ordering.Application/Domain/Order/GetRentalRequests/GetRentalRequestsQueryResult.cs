@@ -1,4 +1,4 @@
-﻿using Ordering.Application.Domain.Order.GetRentalRequests.Dto;
+﻿using Ordering.Application.Domain.Order.Common;
 using Ordering.Persistance.Entities;
 
 namespace Ordering.Application.Domain.Order.GetRentalRequests

@@ -26,5 +26,17 @@ namespace Ordering.Persistance.Repositories.Mongo
             var properties = await _context.Properties.Find(filter).ToListAsync();
             return properties;
         }
+
+        public async Task<Property> GetOwnerPropertyAsync(string ownerId, string propertyId)
+        {
+            var filter = Builders<Property>.Filter.And(
+                Builders<Property>.Filter.Eq(p => p.UserId, ownerId),
+                Builders<Property>.Filter.Eq(p => p.Id, propertyId)
+            );
+
+            var property = await _context.Properties.Find(filter).FirstOrDefaultAsync();
+            return property;
+        }
+
     }
 }

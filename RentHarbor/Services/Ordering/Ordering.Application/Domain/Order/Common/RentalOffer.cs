@@ -1,4 +1,4 @@
-﻿namespace Ordering.Application.Domain.Order.GetRentalRequests.Dto
+﻿namespace Ordering.Application.Domain.Order.Common
 {
     public class RentalOffer
     {
