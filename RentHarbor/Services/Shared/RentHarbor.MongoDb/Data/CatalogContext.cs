@@ -19,7 +19,7 @@ namespace RentHarbor.MongoDb.Data
         }
 
         public IMongoCollection<Property> Properties => _database.GetCollection<Property>(CatalogCollections.Properties);
-
+        public IMongoCollection<OfferDocument> OfferDocuments => _database.GetCollection<OfferDocument>(CatalogCollections.OfferDocuments);
         public IMongoCollection<UserProperty> FollowedProperties => _database.GetCollection<UserProperty>(CatalogCollections.FollowedProperties);
     }
 }

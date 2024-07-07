@@ -14,10 +14,12 @@ namespace Ordering.Persistance.Registration
         {
             services.RegisterMongoDb(configuration);
             services.AddTransient<IPropertyRepository, PropertyRepository>();
+            services.AddTransient<IRentalRequestRepository, RentalRequestRepository>();
+            services.AddTransient<IDocumentRepository, DocumentRepository>();
 
             services.AddSingleton<OrderDbContext>();
             services.AddSingleton<NpgsqlConnection>(_ => new NpgsqlConnection(configuration.GetConnectionString("PsqlConnectionString")));
-            services.AddTransient<IRentalRequestRepository, RentalRequestRepository>();
+            
         }
     }
 }

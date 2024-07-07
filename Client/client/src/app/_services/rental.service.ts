@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpResponseModel, RentalOffer, RentalRequest } from '../_models/models';
+import { AcceptRentalRequest, HttpResponseModel, RentalOffer, RentalRequest } from '../_models/models';
 import { AccountService } from './account.service';
 
 @Injectable({
@@ -46,7 +46,22 @@ export class RentalService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${currentToken}`
     });
-    return this.http.get<HttpResponseModel<RentalOffer>>(this.baseUrl + `RentalRequests/${offerId}`, { headers });
+    return this.http.get<HttpResponseModel<RentalOffer>>(this.baseUrl + `RentalRequests/${offerId}`, {headers});
   }
-  
+
+  acceptOffer(model: AcceptRentalRequest): Observable<HttpResponseModel<boolean>> {
+    let currentToken: string = "";
+    this.accountService.getCurrentUserToken().subscribe(token => {
+      if(token != null)
+        currentToken = token;
+    });
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<HttpResponseModel<boolean>>(`${this.baseUrl}RentalRequests/AcceptRentalRequest`, model, { headers });
+}
+
 }

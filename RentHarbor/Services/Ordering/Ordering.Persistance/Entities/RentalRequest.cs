@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ordering.Persistance.Entities
+﻿namespace Ordering.Persistance.Entities
 {
     public class RentalRequest
     {
@@ -12,6 +6,8 @@ namespace Ordering.Persistance.Entities
         public string PropertyId { get; set; }  // MongoDB Property ID
         public string TenantId { get; set; }  // Owner ID
         public string UserId { get; set; }  // User ID
+        public bool OwnerAcceptance { get; set; }
+        public bool UserAcceptance { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfPeople { get; set; }

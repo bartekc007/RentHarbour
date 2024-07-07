@@ -6,6 +6,9 @@ namespace Ordering.Persistance.Repositories.Psql
     {
         Task<int> AddAsync(RentalRequest rentalRequest);
         Task<List<RentalRequest>> GetRentalRequestsByOwnerIdAsync(string ownerId);
-        Task<RentalRequest> GetRentalRequestByOwnerIdAsync(string ownerId, string offerId);
+        Task<RentalRequest> GetRentalRequestByOwnerIdAndOfferIdAsync(string ownerId, int offerId);
+        Task<RentalRequest> GetRentalRequestByOfferIdAsync( int offerId);
+        Task<bool> ModifyAsync(RentalRequest rentalRequest);
+        Task<bool> DeleteAsync(int id);
     }
 }

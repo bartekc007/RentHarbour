@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Ordering.Application.Domain.Order.GetRentalRequests.Dto;
+using Ordering.Application.Domain.Order.Common;
 using Ordering.Persistance.Repositories.Mongo;
 using Ordering.Persistance.Repositories.Psql;
 

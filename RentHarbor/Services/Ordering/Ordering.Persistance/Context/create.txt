@@ -10,6 +10,8 @@ BEGIN
             PropertyId VARCHAR(255) NOT NULL,  -- MongoDB Property ID
             TenantId VARCHAR(255) NOT NULL,  -- Owner ID
             UserId VARCHAR(255) NOT NULL,  -- User ID
+            OwnerAcceptance BOOLEAN NOT NULL DEFAULT FALSE,
+            UserAcceptance BOOLEAN NOT NULL DEFAULT FALSE,
             StartDate TIMESTAMP NOT NULL,
             EndDate TIMESTAMP NOT NULL,
             NumberOfPeople INT NOT NULL,
@@ -19,5 +21,3 @@ BEGIN
         );
     END IF;
 END $$;
-
-

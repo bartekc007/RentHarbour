@@ -30,7 +30,9 @@ namespace Ordering.Application.Domain.Order.CreateRentalRequest
                 Pets = request.Pets,
                 NumberOfPeople = request.NumberOfPeople,
                 MessageToOwner = request.MessageToOwner,
-                Status = "Pending"
+                Status = "Pending",
+                OwnerAcceptance = false,
+                UserAcceptance = false
             };
 
             var result = await _rentalRepository.AddAsync(rentalRequest);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RentalDocumentRequest, RentalOffer } from 'src/app/_models/models';
+import { AcceptRentalRequest, RentalDocumentRequest, RentalOffer } from 'src/app/_models/models';
 import { DocumentService } from 'src/app/_services/document.service';
 import { RentalService } from 'src/app/_services/rental.service';
 import { ToastrService } from 'ngx-toastr';
@@ -44,6 +44,19 @@ export class OfferDetailsComponent implements OnInit {
     }
   }
 
+  acceptOffer() {
+    let model: AcceptRentalRequest = {
+      OfferId: this.offer.id,
+      Status: this.pdfFile != null ? 2 : 1,
+    };
+    this.rentalService.acceptOffer(model).subscribe(response => {
+      if (response.data == true)
+        this.toastr.success('offer accepted',"success");
+      else 
+        this.toastr.error('unexpected error occured.',"error");
+    });
+  }
+
   uploadDocument() {
     if (!this.pdfFile) {
       this.toastr.error('Please select a PDF file to upload.',"error");
@@ -58,12 +71,13 @@ export class OfferDetailsComponent implements OnInit {
     this.documentService.uploadDocument(model).subscribe(
       response => {
         console.log('Document uploaded successfully:', response);
-        // Dodaj odpowiednią obsługę powodzenia (np. wyświetlenie komunikatu użytkownikowi)
-        this.pdfFile = null; // Wyczyszczenie wybranej wartości pliku po udanym przesłaniu
+        this.toastr.success('file uploaded successfully',"error");
+
+        this.pdfFile = null; 
       },
       error => {
         console.error('Error uploading document:', error);
-        // Dodaj odpowiednią obsługę błędów (np. wyświetlenie komunikatu użytkownikowi)
+        this.toastr.error('unexpected error occured.',"error");
       }
     );
   }

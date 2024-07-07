@@ -122,6 +122,11 @@ export interface RentalOffer {
     isActive: boolean;
 }
 
+export interface AcceptRentalRequest {
+    OfferId: number;
+    Status: number; //1 - accept, 2-modify, 3-decline
+}
+
 export interface RentalDocumentRequest {
     offerId: string; 
     file: File;

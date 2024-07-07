@@ -25,4 +25,12 @@
       <button (click)="removeFile()">Remove</button>
     </div>
   </div>
+
+  <div class="accept-offer">
+    <button *ngIf="offer && pdfFile" (click)="uploadDocument()">Upload Document</button>
+  </div>
+
+  <div class="accept-offer">
+    <button *ngIf="offer" (click)="acceptOffer()">Accept Offer</button>
+  </div>
 </div>

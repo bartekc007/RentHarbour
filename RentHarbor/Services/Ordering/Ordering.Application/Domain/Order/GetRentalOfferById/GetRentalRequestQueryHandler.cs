@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Ordering.Application.Domain.Order.Common;
-using Ordering.Application.Domain.Order.GetRentalRequests;
 using Ordering.Persistance.Repositories.Mongo;
 using Ordering.Persistance.Repositories.Psql;
 
@@ -20,7 +19,7 @@ namespace Ordering.Application.Domain.Order.GetRentalOfferById
         public async Task<GetRentalRequestQueryResult> Handle(GetRentalRequestQuery request, CancellationToken cancellationToken)
         {
             // Pobierz pojedynczą ofertę wynajmu na podstawie ownerId i offerId
-            var rentalRequest = await _rentalRepository.GetRentalRequestByOwnerIdAsync(request.OwnerId, request.OfferId);
+            var rentalRequest = await _rentalRepository.GetRentalRequestByOwnerIdAndOfferIdAsync(request.OwnerId, request.OfferId);
 
             // Sprawdź, czy oferta wynajmu została znaleziona
             if (rentalRequest == null)
