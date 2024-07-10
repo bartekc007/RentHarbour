@@ -1,3 +1,6 @@
+using Document.Application.Mapping;
+using Document.Application.Registration;
+using Document.Persistance.Registration;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,11 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.Persistance.Registration;
 using RentHarbor.AuthService.Registration;
-using Ordering.Application.Registration;
 
-namespace Ordering.Api
+namespace Document.Api
 {
     public class Startup
     {
@@ -28,10 +29,11 @@ namespace Ordering.Api
             services.RegisterAuthService();
 
             services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Document.Api", Version = "v1" });
             });
             services.AddCors(options =>
             {
@@ -53,14 +55,13 @@ namespace Ordering.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Document.Api v1"));
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

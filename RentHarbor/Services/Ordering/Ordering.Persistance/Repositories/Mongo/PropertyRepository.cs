@@ -38,5 +38,16 @@ namespace Ordering.Persistance.Repositories.Mongo
             return property;
         }
 
+        public async Task<bool> UpdateAsync(Property property)
+        {
+            var filter = Builders<Property>.Filter.And(
+                Builders<Property>.Filter.Eq(p => p.Id, property.Id),
+                Builders<Property>.Filter.Eq(p => p.UserId, property.UserId)
+            );
+
+            var updateResult = await _context.Properties.ReplaceOneAsync(filter, property);
+
+            return updateResult.IsAcknowledged && updateResult.ModifiedCount > 0;
+        }
     }
 }

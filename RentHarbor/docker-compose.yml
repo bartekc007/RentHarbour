@@ -31,12 +31,6 @@ services:
       context: .
       dockerfile: Services/Communication.Api/Dockerfile
 
-  document.api:
-    image: ${DOCKER_REGISTRY-}documentapi
-    build:
-      context: .
-      dockerfile: Services/Document.Api/Dockerfile
-
   authorization.sqlserver:
     image: mcr.microsoft.com/mssql/server
 
@@ -46,10 +40,17 @@ services:
   orderdb.postgres:
     image: postgres
 
+  document.api:
+    image: ${DOCKER_REGISTRY-}documentapi
+    build:
+      context: .
+      dockerfile: Services/Document.Api/Presentation/Document.Api/Dockerfile
+
 volumes:
   mssql_auth:
   mongo_data:
   postgres_data:
+
 
 
 

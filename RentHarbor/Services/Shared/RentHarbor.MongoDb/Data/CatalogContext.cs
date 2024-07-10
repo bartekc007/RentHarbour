@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using RentHarbor.MongoDb.Data.ExamplePhotos;
 using RentHarbor.MongoDb.Entities;
 
 

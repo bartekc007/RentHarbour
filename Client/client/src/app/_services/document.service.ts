@@ -8,7 +8,7 @@ import { HttpResponseModel, RentalDocumentRequest } from '../_models/models';
   providedIn: 'root'
 })
 export class DocumentService {
-  baseUrl = "https://localhost:9005/api/";
+  baseUrl = "https://localhost:9004/api/";
 
   constructor(private http: HttpClient, private accountService: AccountService) { }
 
