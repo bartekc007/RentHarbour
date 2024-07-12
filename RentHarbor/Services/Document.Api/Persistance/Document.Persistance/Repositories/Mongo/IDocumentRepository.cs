@@ -10,5 +10,6 @@ namespace Document.Persistance.Repositories.Mongo
         Task<OfferDocument> GetLatestDocumentAsync(int offerId);
         Task<List<OfferDocument>> GetDocumentsByOfferIdAsync(int offerId, string userId);
         Task MarkDocumentsAsNotLatestAsync(int offerId);
+        Task<OfferDocument> GetDocumentByIdAsync(string documentId);
     }
 }

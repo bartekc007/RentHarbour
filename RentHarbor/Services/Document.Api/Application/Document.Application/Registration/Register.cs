@@ -1,5 +1,6 @@
 ﻿using Document.Application.Domain.Document.AddDocument;
 using Document.Application.Domain.Document.Common.Dto;
+using Document.Application.Domain.Document.GetDocumentById;
 using Document.Application.Domain.Document.GetDocumentsByOfferId;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace Document.Application.Registration
         {
             services.AddTransient<IRequestHandler<GetDocumentsByOfferIdQuery, List<OfferDocumentDto>>, GetDocumentsByOfferIdHandler>();
             services.AddTransient<IRequestHandler<AddDocumentCommand, OfferDocumentDto>, AddDocumentCommandHandler>();
+            services.AddTransient<IRequestHandler<GetDocumentByIdQuery, OfferDocumentDto>, GetDocumentByIdQueryHandler>();
         }
     }
 }

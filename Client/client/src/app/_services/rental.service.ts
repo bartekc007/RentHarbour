@@ -62,6 +62,21 @@ export class RentalService {
     });
 
     return this.http.post<HttpResponseModel<boolean>>(`${this.baseUrl}RentalRequests/AcceptRentalRequest`, model, { headers });
-}
+  }
+
+  getRentalRequestsByUserId(): Observable<HttpResponseModel<RentalRequest[]>> {
+    let currentToken: string = "";
+    this.accountService.getCurrentUserToken().subscribe(token => {
+      if(token != null)
+        currentToken = token;
+    });
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get<HttpResponseModel<RentalRequest[]>>(this.baseUrl + 'RentalRequests/GetRentalRequestsByUserId', { headers })   
+  }
 
 }

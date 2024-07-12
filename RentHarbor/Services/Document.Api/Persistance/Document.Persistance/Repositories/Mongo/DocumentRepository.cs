@@ -41,6 +41,12 @@ namespace Document.Persistance.Repositories.Mongo
                           Builders<OfferDocument>.Filter.Eq(d => d.RenterId, userId));
             return await _context.OfferDocuments.Find(filter).SortByDescending(d => d.UploadDate).ToListAsync();
         }
+
+        public async Task<OfferDocument> GetDocumentByIdAsync(string documentId)
+        {
+            var filter = Builders<OfferDocument>.Filter.Eq(d => d.DocumentId, documentId);
+            return await _context.OfferDocuments.Find(filter).FirstOrDefaultAsync();
+        }
     }
 
 }

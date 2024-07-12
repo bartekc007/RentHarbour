@@ -120,6 +120,7 @@ export interface RentalOffer {
     propertyCountry: string;
     isAvailable: boolean;
     isActive: boolean;
+    accepted: boolean;
 }
 
 export interface AcceptRentalRequest {
@@ -129,5 +130,13 @@ export interface AcceptRentalRequest {
 
 export interface RentalDocumentRequest {
     offerId: string; 
+    file: File;
+}
+
+export interface RentalDocument {
+    documentId: string;
+    offerId: string; 
+    fileName: string;
+    isLatest: boolean;
     file: File;
 }

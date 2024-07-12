@@ -219,6 +219,54 @@ public class RentalRequestRepository : IRentalRequestRepository
         }
     }
 
+    public async Task<List<RentalRequest>> GetRentalRequestsByUserIdAsync(string userId)
+    {
+        try
+        {
+            var query = @"
+    SELECT rr.* FROM RentalRequests rr
+    WHERE rr.UserId = @UserId";
+            var command = new NpgsqlCommand(query, _connection);
+            command.Parameters.AddWithValue("@UserId", userId);
+
+            await _connection.OpenAsync();
+            var reader = await command.ExecuteReaderAsync();
+
+            var rentalRequests = new List<RentalRequest>();
+            while (await reader.ReadAsync())
+            {
+                var rentalRequest = new RentalRequest
+                {
+                    Id = reader.GetInt32(0),
+                    PropertyId = reader.GetString(1),
+                    TenantId = reader.GetString(2),
+                    UserId = reader.GetString(3),
+                    OwnerAcceptance = reader.GetBoolean(4),
+                    UserAcceptance = reader.GetBoolean(5),
+                    StartDate = reader.GetDateTime(6),
+                    EndDate = reader.GetDateTime(7),
+                    NumberOfPeople = reader.GetInt32(8),
+                    Pets = reader.GetBoolean(9),
+                    MessageToOwner = reader.IsDBNull(10) ? null : reader.GetString(10),
+                    Status = reader.GetString(11)
+                };
+                rentalRequests.Add(rentalRequest);
+            }
+
+            await _connection.CloseAsync();
+            return rentalRequests;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
 
     public async Task<bool> DeleteAsync(int id)
     {

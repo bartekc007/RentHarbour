@@ -1,8 +1,11 @@
 ﻿using Document.Application.Domain.Document.AddDocument;
+using Document.Application.Domain.Document.GetDocumentById;
 using Document.Application.Domain.Document.GetDocumentsByOfferId;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RentHarbor.AuthService.Services;
+using System.Net;
+using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -63,7 +66,38 @@ namespace Document.Api.Controllers
 
             var documents = await _mediator.Send(query);
 
-            return Ok(documents);
+            return Ok(new { Data = documents, Status = HttpStatusCode.OK });
+        }
+
+        [HttpGet("DownloadDocument/{documentId}")]
+        public async Task<IActionResult> DownloadDocument(string documentId)
+        {
+            string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
+            JsonDocument doc = JsonDocument.Parse(userIdJson);
+            JsonElement root = doc.RootElement;
+            string userId = root.GetProperty("userId").GetString();
+
+            var query = new GetDocumentByIdQuery
+            {
+                DocumentId = documentId
+            };
+
+            var document = await _mediator.Send(query);
+
+            if (document == null)
+            {
+                return NotFound();
+            }
+
+            var contentDisposition = new ContentDisposition
+            {
+                FileName = document.FileName,
+                Inline = false,
+            };
+            Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+
+            return File(document.Content, "application/pdf");
         }
     }
 

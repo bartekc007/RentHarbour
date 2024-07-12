@@ -31,6 +31,29 @@
   </div>
 
   <div class="accept-offer">
-    <button *ngIf="offer" (click)="acceptOffer()">Accept Offer</button>
+    <div *ngIf="offer">
+      <div *ngIf="!offer.accepted" class="uploaded-file">
+        <button (click)="acceptOffer()">Accept Offer</button>
+      </div>
+    </div>
   </div>
+  <div class="accept-offer">
+    <div *ngIf="offer">
+      <div *ngIf="!offer.accepted" class="uploaded-file">
+        <button (click)="rejectOffer()">reject Offer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="document-list">
+    <h3>Documents</h3>
+    <ul>
+      <li *ngFor="let document of documents" class="document-item">
+        <span class="document-name">{{ document.fileName }}</span>
+        <span *ngIf="document.isLatest" class="document-latest">(Latest)</span>
+        <button class="document-download" (click)="downloadDocument(document.documentId, document.fileName)">Download</button>
+      </li>
+    </ul>
+  </div>
+  
 </div>

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Ordering.Application.Domain.Order.Common;
 using Ordering.Persistance.Entities;
 using Ordering.Persistance.Repositories.Mongo;
 using Ordering.Persistance.Repositories.Psql;

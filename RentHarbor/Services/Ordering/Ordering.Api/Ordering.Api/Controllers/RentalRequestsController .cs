@@ -8,6 +8,7 @@ using System.Net;
 using System.Text.Json;
 using Ordering.Application.Domain.Order.GetRentalOfferById;
 using Ordering.Application.Domain.Order.AcceptRentalRequest;
+using Ordering.Application.Domain.Order.GetRentalRequestByUserId;
 
 namespace Ordering.Api.Controllers
 {
@@ -63,6 +64,21 @@ namespace Ordering.Api.Controllers
             string userId = root.GetProperty("userId").GetString();
 
             var query = new GetRentalRequestsQuery { OwnerId = userId };
+            var rentalRequests = await _mediator.Send(query);
+            return Ok(new { Data = rentalRequests.Data, Status = HttpStatusCode.OK });
+        }
+
+        [HttpGet("GetRentalRequestsByUserId")]
+        public async Task<IActionResult> GetRentalRequestsByUserId()
+        {
+            string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
+            JsonDocument doc = JsonDocument.Parse(userIdJson);
+
+            JsonElement root = doc.RootElement;
+            string userId = root.GetProperty("userId").GetString();
+
+            var query = new GetRentalRequestByUserIdQuery { UserId = userId };
             var rentalRequests = await _mediator.Send(query);
             return Ok(new { Data = rentalRequests.Data, Status = HttpStatusCode.OK });
         }

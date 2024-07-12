@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountService } from './account.service';
-import { HttpResponseModel, RentalDocumentRequest } from '../_models/models';
+import { HttpResponseModel, RentalDocument, RentalDocumentRequest } from '../_models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,37 @@ export class DocumentService {
 
     const url = `${this.baseUrl}OfferDocuments/UploadDocument`;
     return this.http.post<any>(url, formData, { headers });
+  }
+
+  getDocumentsByOfferId(offerId: string): Observable<HttpResponseModel<RentalDocument[]>> {
+    let currentToken: string = "";
+    this.accountService.getCurrentUserToken().subscribe(token => {
+      if (token != null) {
+        currentToken = token;
+      }
+    });
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`
+    });
+
+    const url = `${this.baseUrl}OfferDocuments/${offerId}/documents`;
+    return this.http.get<HttpResponseModel<RentalDocument[]>>(url, { headers });
+  }
+
+  downloadDocument(documentId: string): Observable<Blob> {
+    let currentToken: string = "";
+    this.accountService.getCurrentUserToken().subscribe(token => {
+      if (token != null) {
+        currentToken = token;
+      }
+    });
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`
+    });
+
+    const url = `${this.baseUrl}OfferDocuments/DownloadDocument/${documentId}`;
+    return this.http.get(url, { headers, responseType: 'blob' });
   }
 }

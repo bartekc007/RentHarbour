@@ -52,6 +52,8 @@ namespace Ordering.Application.Domain.Order.GetRentalOfferById
                 IsActive = property?.IsActive ?? false
             };
 
+            result.Accepted = request.OwnerId == property.UserId ? rentalRequest.OwnerAcceptance : rentalRequest.UserAcceptance;
+
             return new GetRentalRequestQueryResult
             {
                 Data = result
