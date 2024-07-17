@@ -16,8 +16,8 @@ namespace RentHarbor.MongoDb.Registration
             var database = client.GetDatabase(databaseName);
 
             services.AddSingleton(database);
-            services.AddScoped<ICatalogContext, CatalogContext>();
-            services.AddTransient<CatalogContextSeed>();
+            services.AddScoped<IMongoContext, MongoContext>();
+            services.AddTransient<MongoContextSeed>();
         }
     }
 }

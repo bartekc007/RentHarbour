@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Basket.Application.Domains.Basket.GetFollowedProperties.Dto
+﻿namespace Basket.Application.Domains.Basket.GetFollowedProperties.Dto
 {
     public class AddressDto
     {

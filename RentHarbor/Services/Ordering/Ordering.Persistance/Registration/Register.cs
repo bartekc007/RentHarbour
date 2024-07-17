@@ -16,6 +16,7 @@ namespace Ordering.Persistance.Registration
             services.AddTransient<IPropertyRepository, PropertyRepository>();
             services.AddTransient<IRentalRequestRepository, RentalRequestRepository>();
             services.AddTransient<IRentalRepository, RentalRepository>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
 
             services.AddSingleton<OrderDbContext>();
             services.AddSingleton<NpgsqlConnection>(_ => new NpgsqlConnection(configuration.GetConnectionString("PsqlConnectionString")));

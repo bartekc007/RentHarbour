@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using RentHarbor.MongoDb.Entities;
 
 namespace Basket.Application.Domains.Basket.UpdateFollowedProperty
 {

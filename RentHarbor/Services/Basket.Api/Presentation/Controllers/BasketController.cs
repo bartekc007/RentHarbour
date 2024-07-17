@@ -2,7 +2,6 @@
 using Basket.Application.Domains.Basket.UpdateBasket;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RentHarbor.MongoDb.Entities;
 using System.Net;
 using System.Threading.Tasks;
 

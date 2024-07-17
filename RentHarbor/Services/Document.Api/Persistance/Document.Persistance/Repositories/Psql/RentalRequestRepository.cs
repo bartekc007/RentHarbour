@@ -2,7 +2,6 @@
 using Document.Persistance.Repositories.Psql;
 using Npgsql;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class RentalRequestRepository : IRentalRequestRepository

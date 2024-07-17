@@ -17,6 +17,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { OfferListComponent } from './components/offer-list/offer-list.component';
 import { OfferDetailsComponent } from './components/offer-details/offer-details.component';
+import { MyOfferListComponent } from './components/my-offer-list/my-offer-list.component';
+import { PaymentListComponent } from './components/payment-list/payment-list.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { OfferDetailsComponent } from './components/offer-details/offer-details.
     PhotoModalComponent,
     RegisterComponent,
     OfferListComponent,
-    OfferDetailsComponent
+    OfferDetailsComponent,
+    MyOfferListComponent,
+    PaymentListComponent,
+    ChatComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

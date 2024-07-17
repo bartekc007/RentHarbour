@@ -1,0 +1,52 @@
+.payment-list {
+    margin-top: 20px;
+}
+
+.payment-list h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.payment-item {
+    list-style-type: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment-property,
+.payment-user,
+.payment-dates,
+.payment-amount,
+.payment-status {
+    flex: 1;
+}
+
+.paid-date {
+    color: green;
+}
+
+.pay-rent-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pay-rent-btn:hover {
+    background-color: #0056b3;
+}
+
+.no-payments {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}

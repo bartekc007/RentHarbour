@@ -9,9 +9,9 @@ namespace Catalog.Application.Application.Domains.Property.GetProperties
 {
     public class GetPropertiesQueryHandler : IRequestHandler<GetPropertiesQuery, GetPropertiesResult>
     {
-        private readonly ICatalogContext _context;
+        private readonly IMongoContext _context;
         private readonly IMapper _mapper;
-        public GetPropertiesQueryHandler(ICatalogContext context, IMapper mapper)
+        public GetPropertiesQueryHandler(IMongoContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

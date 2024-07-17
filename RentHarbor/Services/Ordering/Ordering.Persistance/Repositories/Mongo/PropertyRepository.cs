@@ -6,8 +6,8 @@ namespace Ordering.Persistance.Repositories.Mongo
 {
     public class PropertyRepository : IPropertyRepository
     {
-        private readonly ICatalogContext _context;
-        public PropertyRepository(ICatalogContext context)
+        private readonly IMongoContext _context;
+        public PropertyRepository(IMongoContext context)
         {
             _context = context;
         }

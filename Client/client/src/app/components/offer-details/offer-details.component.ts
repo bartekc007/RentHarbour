@@ -4,6 +4,7 @@ import { AcceptRentalRequest, RentalDocument, RentalDocumentRequest, RentalOffer
 import { DocumentService } from 'src/app/_services/document.service';
 import { RentalService } from 'src/app/_services/rental.service';
 import { ToastrService } from 'ngx-toastr';
+import { ChatService } from 'src/app/_services/chat.service';
 
 @Component({
   selector: 'app-offer-details',
@@ -18,6 +19,7 @@ export class OfferDetailsComponent implements OnInit {
 
   constructor(private rentalService: RentalService,
      private documentService: DocumentService,
+     private chatService: ChatService,
       private route: ActivatedRoute,
       private router: Router,
       private toastr: ToastrService) { }
@@ -127,6 +129,27 @@ export class OfferDetailsComponent implements OnInit {
       error => {
         console.error('Error downloading document:', error);
         this.toastr.error('Unexpected error occurred.', "Error");
+      }
+    );
+  }
+
+  createChat() {
+    // Logika tworzenia nowego czatu
+    const chat = {
+      title: `Chat for offer ${this.offer.id}`, // Przykładowy tytuł czatu
+      // Dodaj inne niezbędne pola czatu, takie jak chatId, userId itp.
+    };
+
+    this.chatService.createChat(this.offer.id).subscribe(
+      (createdChat) => {
+        this.toastr.success('Chat created successfully.');
+
+        // Przeniesienie do strony konkretnego czatu
+        this.router.navigate(['/chat', createdChat.id]); // Przykład URL do chatu
+      },
+      error => {
+        console.error('Error creating chat:', error);
+        this.toastr.error('Failed to create chat.', 'Error');
       }
     );
   }

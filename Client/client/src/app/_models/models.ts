@@ -140,3 +140,42 @@ export interface RentalDocument {
     isLatest: boolean;
     file: File;
 }
+
+export interface RentedProperty {
+    propertyId: string;
+    propertyName: string;
+    propertyStreet: string;
+    startDate: Date;
+    endDate: Date;
+}
+
+export interface Payment {
+    id: string; 
+    userId: string;
+    propertyId: string;
+    paymentDate: Date; 
+    isPaid: boolean;
+    amount: number;
+    paidDate?: Date | null; 
+}
+
+export interface Message {
+    id: string;
+    chatId: string;  // Dodany nowy property
+    senderId: string;
+    recipientId: string;
+    content: string;
+    sentAt: Date;
+  }
+
+export interface Chat {
+    id: string;
+    user1Id: string;
+    user2Id: string;
+    messages: Message[];
+  }
+
+export interface ChatRequest {
+    offerId: number;
+  }
+  

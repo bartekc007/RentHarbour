@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpResponseModel, PropertiesGetAllRequest, PropertyDto } from 'src/app/_models/models';
+import { HttpResponseModel, PropertiesGetAllRequest, PropertyDto, RentedProperty } from 'src/app/_models/models';
 import { CatalogService } from 'src/app/_services/catalog.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class PropertyListComponent implements OnInit {
   properties: PropertyDto[] = [];
   filters: PropertiesGetAllRequest = {}
   searchForm!: FormGroup;
+  rentedProperties : RentedProperty[] = [];
 
   constructor(private catalogService: CatalogService, private route: ActivatedRoute, private fb: FormBuilder) {}
 
@@ -38,6 +39,11 @@ export class PropertyListComponent implements OnInit {
         
       } else if (this.type === 'owned') {
         
+      } else if (this.type === 'rented') {
+        this.catalogService.GetRented().subscribe((data: HttpResponseModel<RentedProperty[]>) => {
+          this.rentedProperties = data.data;
+          console.log('Rented properties data:', this.rentedProperties);
+        });
       } else {
         this.catalogService.getAll({}).subscribe((data: HttpResponseModel<PropertyDto[]>) => {
           this.properties = data.data;
@@ -87,5 +93,9 @@ export class PropertyListComponent implements OnInit {
       if(data.status == 200)
         this.properties = data.data;
     });
+  }
+
+  payRent(property: RentedProperty) {
+    
   }
 }

@@ -14,14 +14,17 @@
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" (click)="logout()">My properties</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" (click)="logout()">My offers</a>
+                      <a class="dropdown-item" routerLink='properties/rented' routerLinkActive="active">Rented Properties</a>
                     </div>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink='/messages' routerLinkActive="active">Messages</a>
+                    <a class="nav-link" routerLink='/chat-list' routerLinkActive="active">Messages</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink='/offers' routerLinkActive="active">Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink='/my-offers' routerLinkActive="active">My offers</a>
                 </li>
             </ng-container>
         </ul>

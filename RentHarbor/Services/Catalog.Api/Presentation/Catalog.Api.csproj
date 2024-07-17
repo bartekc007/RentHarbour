@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\RentHarbor.AuthService\RentHarbor.AuthService.csproj" />
     <ProjectReference Include="..\Application\Catalog.Application.csproj" />
   </ItemGroup>
 

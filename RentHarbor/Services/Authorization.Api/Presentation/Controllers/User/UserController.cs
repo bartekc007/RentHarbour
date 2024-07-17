@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Authorization.Application.Domains.User.RefreshToken;
 using System.Net;
 using Authorization.Application.Domains.User.Login;
-using Microsoft.AspNetCore.Authorization;
 using Authorization.Infrastructure.Services.Jwt;
 
 namespace Authorization.Api.Controllers.User

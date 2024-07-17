@@ -10,12 +10,17 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
         private readonly IRentalRequestRepository _rentalRequestRepository;
         private readonly IRentalRepository _rentalRepository;
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IPaymentRepository _paymentRepository;
 
-        public AcceptRentalRequestCommandHandler(IRentalRequestRepository rentalRequestRepository, IRentalRepository rentalRepository, IPropertyRepository propertyRepository)
+        public AcceptRentalRequestCommandHandler(IRentalRequestRepository rentalRequestRepository,
+            IRentalRepository rentalRepository,
+            IPropertyRepository propertyRepository,
+            IPaymentRepository paymentRepository)
         {
             _rentalRequestRepository = rentalRequestRepository;
             _rentalRepository = rentalRepository;
             _propertyRepository = propertyRepository;
+            _paymentRepository = paymentRepository;
         }
         public async Task<bool> Handle(AcceptRentalRequestCommand request, CancellationToken cancellationToken)
         {
@@ -67,26 +72,79 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
             // Create a new rental
             var rental = new Rental
             {
-                Id = Guid.NewGuid().ToString(),  // Assuming the Id is a string. Change as necessary.
+                Id = Guid.NewGuid().ToString(),
                 PropertyId = rentalOffer.PropertyId,
                 RentalRequestId = rentalOffer.Id.ToString(),
-                RenterId = rentalOffer.UserId
+                RenterId = rentalOffer.UserId,
+                StartDate = new DateOnly(rentalOffer.StartDate.Year, rentalOffer.StartDate.Month, rentalOffer.StartDate.Day),
+                EndDate = new DateOnly(rentalOffer.EndDate.Year, rentalOffer.EndDate.Month, rentalOffer.EndDate.Day)
             };
 
             await _rentalRepository.AddAsync(rental);
 
-            // Update the property to indicate it is rented
             var property = await _propertyRepository.GetOwnerPropertyAsync(rentalOffer.TenantId, rentalOffer.PropertyId);
             if (property != null)
             {
                 property.RentedByUserId = rentalOffer.UserId;
                 property.IsAvailable = false;
-
-                // Assuming there is a method to update the property
-                // Update the property in the repository. 
-                // Example: await _propertyRepository.UpdateAsync(property);
                 await _propertyRepository.UpdateAsync(property);
             }
+
+            await GeneratePaymentsFromRentalRequest(rentalOffer);
+        }
+
+        private async Task GeneratePaymentsFromRentalRequest(RentalRequest rentalRequest)
+        {
+            DateTime startDate = rentalRequest.StartDate;
+            DateTime endDate = rentalRequest.EndDate;
+
+            List<Persistance.Entities.Payment> payments = GeneratePayments(startDate, endDate);
+
+            foreach (var payment in payments)
+            {
+                payment.UserId = rentalRequest.UserId;
+                payment.PropertyId = rentalRequest.PropertyId;
+                payment.IsPaid = false; // Initial state
+                payment.PaidDate = null; // Initial state
+
+                await _paymentRepository.AddAsync(payment);
+            }
+        }
+
+        private List<Persistance.Entities.Payment> GeneratePayments(DateTime startDate, DateTime endDate)
+        {
+            List<Persistance.Entities.Payment> payments = new List<Persistance.Entities.Payment>();
+
+            DateTime currentDate = startDate;
+            DateTime lastDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
+
+            while (currentDate <= endDate)
+            {
+                Persistance.Entities.Payment payment = new Persistance.Entities.Payment
+                {
+                    PaymentDate = lastDayOfMonth,
+                    Amount = CalculatePaymentAmount(startDate, endDate),
+                    IsPaid = false, // Initial state
+                    PaidDate = null // Initial state
+                };
+
+                payments.Add(payment);
+
+                // Move to the next month
+                currentDate = lastDayOfMonth.AddMonths(1);
+                lastDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
+            }
+
+            return payments;
+        }
+
+        private decimal CalculatePaymentAmount(DateTime startDate, DateTime endDate)
+        {
+            // Example calculation, adjust as per your business logic
+            int totalMonths = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month + 1;
+            decimal monthlyPayment = 1000; // Example amount per month
+            decimal totalAmount = totalMonths * monthlyPayment;
+            return totalAmount;
         }
     }
 }

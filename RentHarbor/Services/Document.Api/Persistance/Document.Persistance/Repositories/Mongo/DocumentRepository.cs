@@ -8,9 +8,9 @@ namespace Document.Persistance.Repositories.Mongo
 {
     public class DocumentRepository : IDocumentRepository
     {
-        private readonly ICatalogContext _context;
+        private readonly IMongoContext _context;
 
-        public DocumentRepository(ICatalogContext context)
+        public DocumentRepository(IMongoContext context)
         {
             _context = context;
         }

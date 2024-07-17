@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Catalog.Application.Application.Domains.Property.GetProperties.Dto
+﻿namespace Catalog.Application.Application.Domains.Property.GetProperties.Dto
 {
     public class AddressDto
     {

@@ -1,0 +1,36 @@
+<div class="offer-list">
+    <div class="offer-item header">
+      <div class="item">Start Date</div>
+      <div class="item">End Date</div>
+      <div class="item">Number of People</div>
+      <div class="item">Pets</div>
+      <div class="item">Status</div>
+      <div class="item">Property Name</div>
+      <div class="item">Street</div>
+      <div class="item">City</div>
+      <div class="item">State</div>
+      <div class="item">Postal Code</div>
+      <div class="item">Country</div>
+      <div class="item">Available</div>
+      <div class="item">Active</div>
+    </div>
+    <div class="offer-item" *ngFor="let offer of rentalOffers">
+      <div class="item">{{ offer.startDate | date }}</div>
+      <div class="item">{{ offer.endDate | date }}</div>
+      <div class="item">{{ offer.numberOfPeople }}</div>
+      <div class="item">{{ offer.pets ? 'Yes' : 'No' }}</div>
+      <div class="item">{{ offer.status }}</div>
+      <div class="item">{{ offer.propertyName }}</div>
+      <div class="item">{{ offer.propertyStreet }}</div>
+      <div class="item">{{ offer.propertyCity }}</div>
+      <div class="item">{{ offer.propertyState }}</div>
+      <div class="item">{{ offer.propertyPostalCode }}</div>
+      <div class="item">{{ offer.propertyCountry }}</div>
+      <div class="item">{{ offer.isAvailable ? 'Yes' : 'No' }}</div>
+      <div class="item">{{ offer.isActive ? 'Yes' : 'No' }}</div>
+      <div class="item">
+        <a class="link" [routerLink]="'/offer/' + offer.id" routerLinkActive="active">Show offer</a>
+      </div>
+    </div>
+  </div>
+  

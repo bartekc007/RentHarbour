@@ -31,6 +31,17 @@ namespace Ordering.Application.Domain.Order.GetRentalOfferById
             }
 
             var property = await _propertyRepository.GetOwnerPropertyAsync(request.OwnerId, rentalRequest.PropertyId);
+            if (property == null)
+            {
+                property = await _propertyRepository.GetOwnerPropertyAsync(rentalRequest.TenantId, rentalRequest.PropertyId);
+                if (property == null)
+                {
+                    return new GetRentalRequestQueryResult
+                    {
+                        Data = null
+                    };
+                }
+            }
 
             var result = new RentalOffer
             {

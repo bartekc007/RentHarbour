@@ -1,7 +1,6 @@
 ﻿using Basket.Application.Domains.Basket.GetFollowedProperties;
 using Basket.Application.Domains.Basket.UpdateBasket;
 using Basket.Application.Domains.Basket.UpdateFollowedProperty;
-using Basket.Application.Mappings;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

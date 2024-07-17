@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Ordering.Persistance.Registration;
 using RentHarbor.AuthService.Registration;
 using Ordering.Application.Registration;
+using Ordering.Application.Mapping;
 
 namespace Ordering.Api
 {
@@ -28,6 +29,7 @@ namespace Ordering.Api
             services.RegisterAuthService();
 
             services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup), typeof(MappingProfile));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -55,8 +57,6 @@ namespace Ordering.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.Api v1"));
             }
-
-            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -1,0 +1,35 @@
+.offer-list {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+  }
+  
+  .offer-item {
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .offer-item.header {
+    font-weight: bold;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .offer-item .item {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-left: 1px solid #ddd;
+  }
+  
+  .offer-item .item:first-child {
+    border-left: none;
+    flex: 0.8; /* Adjust the width of the first column */
+  }
+  
+  .offer-item .item:last-child {
+    border-right: none;
+    flex: 0.8; /* Adjust the width of the last column */
+  }
+  

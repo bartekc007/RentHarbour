@@ -1,5 +1,7 @@
 using Application.Registration;
+using Catalog.Application.Extensions;
 using Catalog.Application.Mapping;
+using Catalog.Persistance.Registration;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Persistance.Registration;
+using RentHarbor.AuthService.Registration;
 using RentHarbor.MongoDb.Data;
 
 namespace Catalog.Api
@@ -26,10 +28,15 @@ namespace Catalog.Api
         {
             services.RegisterPersistanceLayer(Configuration);
             services.RegisterApplicationLayer();
+            services.RegisterAuthService();
             services.AddAutoMapper(typeof(Startup), typeof(MappingProfile));
 
             services.AddMediatR(typeof(Startup));
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+                    });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog.Api", Version = "v1" });
@@ -47,7 +54,7 @@ namespace Catalog.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CatalogContextSeed catalogContextSeed)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MongoContextSeed catalogContextSeed)
         {
             app.UseCors("AllowAll");
             if (env.IsDevelopment())
@@ -58,8 +65,6 @@ namespace Catalog.Api
 
                 catalogContextSeed.Seed();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

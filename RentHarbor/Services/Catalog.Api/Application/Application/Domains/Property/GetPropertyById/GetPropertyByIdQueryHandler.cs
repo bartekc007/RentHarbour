@@ -8,10 +8,10 @@ namespace Catalog.Application.Application.Domains.Property.GetPropertyById
 {
     public class GetPropertyByIdQueryHandler : IRequestHandler<GetPropertyByIdQuery, GetPropertyByIdDto>
     {
-        private readonly ICatalogContext _context;
+        private readonly IMongoContext _context;
         private readonly IMapper _mapper;
 
-        public GetPropertyByIdQueryHandler(ICatalogContext context, IMapper mapper)
+        public GetPropertyByIdQueryHandler(IMongoContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -1,9 +1,6 @@
 ﻿using Document.Application.Domain.Document.Common.Dto;
 using Document.Persistance.Repositories.Mongo;
 using MediatR;
-using MongoDB.Driver;
-using RentHarbor.MongoDb.Data;
-using RentHarbor.MongoDb.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Persistance\Authorization.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

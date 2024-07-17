@@ -124,16 +124,16 @@ public class RentalRequestRepository : IRentalRequestRepository
         }
     }
 
-    public async Task<RentalRequest> GetRentalRequestByOwnerIdAndOfferIdAsync(string ownerId, int offerId)
+    public async Task<RentalRequest> GetRentalRequestByOwnerIdAndOfferIdAsync(string userId, int offerId)
     {
         try
         {
             var query = @"
-    SELECT rr.* FROM RentalRequests rr
-    WHERE rr.TenantId = @OwnerId AND rr.Id = @OfferId";
+SELECT rr.* FROM RentalRequests rr
+WHERE (rr.TenantId = @OwnerId OR rr.UserId = @OwnerId) AND rr.Id = @OfferId";
 
             var command = new NpgsqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@OwnerId", ownerId);
+            command.Parameters.AddWithValue("@OwnerId", userId);
             command.Parameters.AddWithValue("@OfferId", offerId);
 
             await _connection.OpenAsync();

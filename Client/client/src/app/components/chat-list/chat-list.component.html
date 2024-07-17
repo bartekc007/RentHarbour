@@ -1,0 +1,12 @@
+<div class="chat-list-container">
+    <h2 class="chat-list-header">Chat List</h2>
+    <ul class="chats-list">
+      <li *ngFor="let chat of chats" class="chat-item">
+        <div class="chat-item-content">
+          <span>{{ chat.id }}</span>
+          <button class="chat-open-button" (click)="openChat(chat)">Open Chat</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

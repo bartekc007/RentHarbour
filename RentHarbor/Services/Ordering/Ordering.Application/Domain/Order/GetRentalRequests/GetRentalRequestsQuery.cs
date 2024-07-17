@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Ordering.Persistance.Entities;
 
 namespace Ordering.Application.Domain.Order.GetRentalRequests
 {

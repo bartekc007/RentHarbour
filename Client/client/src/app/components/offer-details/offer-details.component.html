@@ -30,6 +30,10 @@
     <button *ngIf="offer && pdfFile" (click)="uploadDocument()">Upload Document</button>
   </div>
 
+  <div class="create-chat-button">
+    <button (click)="createChat()">Create Chat</button>
+  </div>
+
   <div class="accept-offer">
     <div *ngIf="offer">
       <div *ngIf="!offer.accepted" class="uploaded-file">

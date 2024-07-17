@@ -23,3 +23,54 @@
   .btn-primary {
     width: 100%;
   }
+
+  .rented-property-list {
+    margin: 20px;
+}
+
+.rented-property-list h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.property-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.property-name {
+    font-weight: bold;
+}
+
+.property-street {
+    margin-right: 20px;
+}
+
+.property-dates {
+    font-style: italic;
+}
+
+.property-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.pay-rent-btn {
+  background-color: #007bff; /* Niebieski kolor */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px; /* Zaokrąglone krawędzie */
+  cursor: pointer;
+}
+
+.pay-rent-btn:hover {
+  background-color: #0056b3; /* Ciemniejszy niebieski kolor przy najechaniu */
+}
