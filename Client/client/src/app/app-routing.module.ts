@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'payments/:id', component: PaymentListComponent },
   { path: 'properties/:id', component: PropertyDetailsComponent },
   { path: 'properties/:type', component: PropertyListComponent },
-  { path: 'chat/:recipientId', component: ChatComponent },
+  { path: 'chat/:chatId', component: ChatComponent },
   { path: 'chat-list', component: ChatListComponent }
 ];
 

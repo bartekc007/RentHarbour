@@ -1,20 +1,18 @@
 <div class="chat-container">
-    <div class="messages-container">
-      <div *ngFor="let message of messages" class="message-item">
-        <div class="message-content">
-          <div class="message-text">{{ message.content }}</div>
-          <div class="message-sent-at">{{ message.sentAt | date:'shortTime' }}</div>
-        </div>
-        <div class="message-sender">
-          <span *ngIf="message.senderId === userId; else otherUser">Me:</span>
-          <ng-template #otherUser>User:</ng-template>
-        </div>
+  <div class="messages-container">
+    <div *ngFor="let message of messages" class="message-item">
+      <div class="message-content">
+        <div class="message-text">{{ message.content }}</div>
+        <div class="message-sent-at">{{ message.sentAt | date:'shortTime' }}</div>
+      </div>
+      <div class="message-sender">
+        <span>User:</span>
       </div>
     </div>
-  
-    <div class="message-input">
-      <textarea [(ngModel)]="newMessage" placeholder="Write a message..." class="message-textarea"></textarea>
-      <button (click)="sendMessage()" class="send-button">Send</button>
-    </div>
   </div>
-  
+
+  <div class="message-input">
+    <textarea [(ngModel)]="newMessage" placeholder="Write a message..." class="message-textarea"></textarea>
+    <button (click)="sendMessage()" class="send-button">Send</button>
+  </div>
+</div>

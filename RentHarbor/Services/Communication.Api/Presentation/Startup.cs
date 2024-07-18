@@ -40,12 +40,13 @@ namespace Communication.Api
             });
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll",
+                options.AddPolicy("AllowSpecificOrigins",
                     builder =>
                     {
-                        builder.AllowAnyOrigin() // http://localhost:4200
+                        builder.WithOrigins("https://localhost:4200") // Zmieñ na w³aœciwy adres frontend
+                               .AllowAnyHeader()
                                .AllowAnyMethod()
-                               .AllowAnyHeader();
+                               .AllowCredentials();
                     });
             });
         }
@@ -53,7 +54,7 @@ namespace Communication.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors("AllowAll");
+            app.UseCors("AllowSpecificOrigins");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -16,6 +16,7 @@ namespace Communication.Application.Domain.Message.SendMessage
         {
             var message = new RentHarbor.MongoDb.Entities.Message
             {
+                Id = Guid.NewGuid().ToString(),
                 ChatId = request.ChatId,
                 SenderId = request.SenderId,
                 RecipientId = request.RecipientId,

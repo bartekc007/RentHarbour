@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Message, Chat } from 'src/app/_models/models';
+import { Message } from 'src/app/_models/models';
 import { ChatService } from 'src/app/_services/chat.service';
+import { SignalRService } from 'src/app/_services/signal-r.service';
+
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
-  userId!: string; // Id bieżącego użytkownika
+export class ChatComponent implements OnInit, OnDestroy {
   chatId!: string; // Id czatu
   messages: Message[] = [];
   newMessage: string = '';
@@ -18,13 +19,23 @@ export class ChatComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private chatService: ChatService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private signalRService: SignalRService
   ) { }
 
   ngOnInit(): void {
-    this.userId = ''; // Pobierz Id bieżącego użytkownika z sesji/logowania
     this.chatId = this.route.snapshot.paramMap.get('chatId') || '';
     this.loadMessages();
+    this.signalRService.startConnection(this.chatId);
+    this.signalRService.addTransferMessageDataListener((chatId, senderId, recipientId, message) => {
+      if (chatId === this.chatId) {
+        this.messages.push({ id: '', chatId, senderId, recipientId, content: message, sentAt: new Date() });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.signalRService.stopConnection();
   }
 
   loadMessages() {
@@ -44,25 +55,7 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    const message: Message = {
-      id: '',
-      chatId: this.chatId,
-      senderId: '', // Zostanie uzupełnione po stronie serwera
-      recipientId: '', // Zostanie uzupełnione po stronie serwera
-      content: this.newMessage,
-      sentAt: new Date()
-    };
-
-    this.chatService.sendMessage(message).subscribe(
-      () => {
-        this.toastr.success('Message sent successfully.');
-        this.loadMessages(); // Odśwież wiadomości po wysłaniu
-        this.newMessage = ''; // Wyczyść pole tekstowe
-      },
-      error => {
-        console.error('Error sending message:', error);
-        this.toastr.error('Failed to send message.', 'Error');
-      }
-    );
+    this.signalRService.sendMessage(this.chatId, this.newMessage);
+    this.newMessage = ''; // Wyczyść pole tekstowe
   }
 }

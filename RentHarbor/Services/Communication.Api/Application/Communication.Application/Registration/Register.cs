@@ -10,7 +10,7 @@ namespace Communication.Application.Registration
     {
         public static void RegisterApplicationLayer(this IServiceCollection services)
         {
-            services.AddTransient<IRequestHandler<SendMessageCommand>, SendMessageCommandHandler>();
+            services.AddTransient<IRequestHandler<SendMessageCommand,MediatR.Unit>, SendMessageCommandHandler>();
             services.AddTransient<IRequestHandler<GetMessagesQuery, IEnumerable<MessageDto>>, GetMessagesQueryHandler>();
         }
     }

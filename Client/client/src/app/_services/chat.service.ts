@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AccountService } from './account.service';
 import { Chat, ChatRequest, Message } from '../_models/models';
+import { SignalRService } from './signal-r.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Chat, ChatRequest, Message } from '../_models/models';
 export class ChatService {
   private baseUrl = 'https://localhost:9003/api/';
 
-  constructor(private http: HttpClient, private accountService: AccountService) { }
+  constructor(private http: HttpClient, private accountService: AccountService, private signalRService: SignalRService) { }
 
   sendMessage(message: Message): Observable<any> {
     let currentToken: string = "";
@@ -82,5 +83,9 @@ export class ChatService {
     }
     const url = `${this.baseUrl}chat/CreateChat`;
     return this.http.post<any>(url,model, { headers });
+  }
+
+  notifyServer(chatId: string, senderId: string, message: string) {
+    this.signalRService.sendMessage(chatId, message);
   }
 }
