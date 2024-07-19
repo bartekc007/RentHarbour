@@ -122,21 +122,30 @@ namespace Communication.Api.Controllers
 
                 JsonElement root = doc.RootElement;
                 string userId = root.GetProperty("userId").GetString();
+                var userName = await _authorizationService.GetUserNameById(userId);
 
                 var offer = await _rentalRequestRepository.GetRentalRequestByOfferIdAsync(request.OfferId);
+
                 Chat chat = new Chat
                 {
                     Id = Guid.NewGuid().ToString(),
+                    Title = request.title
                 };
                 if (userId == offer.UserId)
                 {
                     chat.User1Id = userId;
+                    chat.User1Name = userName;
                     chat.User2Id = offer.TenantId;
+                    var TenantName = await _authorizationService.GetUserNameById(offer.TenantId);
+                    chat.User2Name = TenantName;
                 }
                 else
                 {
                     chat.User1Id = userId;
+                    chat.User1Name = userName;
                     chat.User2Id = offer.UserId;
+                    var user2Name = await _authorizationService.GetUserNameById(offer.UserId);
+                    chat.User2Name = user2Name;
                 }
 
                 await _chatRepository.AddChatAsync(chat);

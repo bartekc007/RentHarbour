@@ -22,6 +22,6 @@ export class PaymentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${currentToken}`
     });
-    return this.http.get<HttpResponseModel<Payment[]>>(`${this.baseUrl}Payment/${propertyId}`,{headers});
+    return this.http.get<HttpResponseModel<Payment[]>>(this.baseUrl + `Payment/${propertyId}`,{headers});
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Payment } from 'src/app/_models/models';
+import { Payment, PropertyDto } from 'src/app/_models/models';
+import { CatalogService } from 'src/app/_services/catalog.service';
 import { PaymentService } from 'src/app/_services/payment.service';
 
 @Component({
@@ -11,15 +12,20 @@ import { PaymentService } from 'src/app/_services/payment.service';
 export class PaymentListComponent implements OnInit {
 
   payments: Payment[] = [];
+  property!: PropertyDto;
 
   constructor(private paymentService: PaymentService,
     private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router,
+    private catalogService: CatalogService) { }
 
   ngOnInit(): void {
     let id = String(this.route.snapshot.paramMap.get('id'));
     this.paymentService.getRentalOffers(id).subscribe(response =>{
       this.payments = response.data;
+    });
+    this.catalogService.getById(id).subscribe(data => {
+      this.property = data.data;
     });
   }
 

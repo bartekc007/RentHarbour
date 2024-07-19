@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'properties/:id', component: PropertyDetailsComponent },
   { path: 'properties/:type', component: PropertyListComponent },
   { path: 'chat/:chatId', component: ChatComponent },
-  { path: 'chat-list', component: ChatListComponent }
+  { path: 'chat-list', component: ChatListComponent },
 ];
 
 @NgModule({

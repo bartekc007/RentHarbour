@@ -163,19 +163,29 @@ export interface Message {
     id: string;
     chatId: string;  // Dodany nowy property
     senderId: string;
+    senderName: string;
     recipientId: string;
+    recipientName: string
     content: string;
     sentAt: Date;
   }
 
 export interface Chat {
     id: string;
+    title: string;
     user1Id: string;
     user2Id: string;
+    user1Name: string;
+    user2Name: string;
     messages: Message[];
   }
 
 export interface ChatRequest {
     offerId: number;
+    title: string;
   }
+
+export interface GetUserNameResponse {
+    userName: string;
+}
   

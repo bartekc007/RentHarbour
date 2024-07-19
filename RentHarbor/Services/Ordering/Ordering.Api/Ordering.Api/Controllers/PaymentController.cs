@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Domain.Payment.GetPayments;
 using RentHarbor.AuthService.Services;
+using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -20,8 +21,8 @@ namespace Ordering.Api.Controllers
             _authorizationService = authorizationService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetPayments([FromQuery] string propertyId)
+        [HttpGet("{propertyId}")]
+        public async Task<IActionResult> GetPayments([FromRoute] string propertyId)
         {
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
@@ -36,7 +37,7 @@ namespace Ordering.Api.Controllers
             };
 
             var result = await _mediator.Send(query);
-            return Ok(result);
+            return Ok(new { Data = result, Status = HttpStatusCode.OK});
         }
 
 /*        [HttpPost]

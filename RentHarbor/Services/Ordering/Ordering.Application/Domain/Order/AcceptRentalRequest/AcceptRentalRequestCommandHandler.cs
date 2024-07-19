@@ -76,8 +76,8 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
                 PropertyId = rentalOffer.PropertyId,
                 RentalRequestId = rentalOffer.Id.ToString(),
                 RenterId = rentalOffer.UserId,
-                StartDate = new DateOnly(rentalOffer.StartDate.Year, rentalOffer.StartDate.Month, rentalOffer.StartDate.Day),
-                EndDate = new DateOnly(rentalOffer.EndDate.Year, rentalOffer.EndDate.Month, rentalOffer.EndDate.Day)
+                StartDate = rentalOffer.StartDate,
+                EndDate = rentalOffer.EndDate
             };
 
             await _rentalRepository.AddAsync(rental);
@@ -95,23 +95,31 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
 
         private async Task GeneratePaymentsFromRentalRequest(RentalRequest rentalRequest)
         {
-            DateTime startDate = rentalRequest.StartDate;
-            DateTime endDate = rentalRequest.EndDate;
-
-            List<Persistance.Entities.Payment> payments = GeneratePayments(startDate, endDate);
-
-            foreach (var payment in payments)
+            try
             {
-                payment.UserId = rentalRequest.UserId;
-                payment.PropertyId = rentalRequest.PropertyId;
-                payment.IsPaid = false; // Initial state
-                payment.PaidDate = null; // Initial state
+                DateTime startDate = rentalRequest.StartDate;
+                DateTime endDate = rentalRequest.EndDate;
 
-                await _paymentRepository.AddAsync(payment);
+                List<Persistance.Entities.Payment> payments = GeneratePayments(startDate, endDate, rentalRequest);
+
+                foreach (var payment in payments)
+                {
+                    payment.Id = Guid.NewGuid().ToString();
+                    payment.UserId = rentalRequest.UserId;
+                    payment.PropertyId = rentalRequest.PropertyId;
+                    payment.IsPaid = false; // Initial state
+                    payment.PaidDate = null; // Initial state
+
+                    await _paymentRepository.AddAsync(payment);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
-        private List<Persistance.Entities.Payment> GeneratePayments(DateTime startDate, DateTime endDate)
+        private List<Persistance.Entities.Payment> GeneratePayments(DateTime startDate, DateTime endDate, RentalRequest rentalRequest)
         {
             List<Persistance.Entities.Payment> payments = new List<Persistance.Entities.Payment>();
 
@@ -123,7 +131,7 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
                 Persistance.Entities.Payment payment = new Persistance.Entities.Payment
                 {
                     PaymentDate = lastDayOfMonth,
-                    Amount = CalculatePaymentAmount(startDate, endDate),
+                    Amount = 1000,
                     IsPaid = false, // Initial state
                     PaidDate = null // Initial state
                 };

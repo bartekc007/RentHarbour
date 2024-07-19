@@ -2,8 +2,7 @@
     <h3>Payments List</h3>
     <ul>
         <li *ngFor="let payment of payments" class="payment-item">
-            <span class="payment-property">{{ payment.propertyId }}</span>
-            <span class="payment-user">{{ payment.userId }}</span>
+            <span class="payment-property">{{ property.name }}</span>
             <span class="payment-dates">{{ payment.paymentDate | date:'shortDate' }}</span>
             <span class="payment-amount">{{ payment.amount | currency }}</span>
             <span class="payment-status">{{ payment.isPaid ? 'Paid' : 'Not Paid' }}</span>

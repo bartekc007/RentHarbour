@@ -140,7 +140,7 @@ export class OfferDetailsComponent implements OnInit {
       // Dodaj inne niezbędne pola czatu, takie jak chatId, userId itp.
     };
 
-    this.chatService.createChat(this.offer.id).subscribe(
+    this.chatService.createChat(this.offer.id, this.offer.propertyName + ' ' + this.offer.propertyCity + ' ' + this.offer.propertyStreet ).subscribe(
       (createdChat) => {
         this.toastr.success('Chat created successfully.');
 

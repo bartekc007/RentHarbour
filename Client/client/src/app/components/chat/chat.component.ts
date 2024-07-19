@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Message } from 'src/app/_models/models';
+import { AccountService } from 'src/app/_services/account.service';
 import { ChatService } from 'src/app/_services/chat.service';
 import { SignalRService } from 'src/app/_services/signal-r.service';
 
@@ -15,21 +16,35 @@ export class ChatComponent implements OnInit, OnDestroy {
   chatId!: string; // Id czatu
   messages: Message[] = [];
   newMessage: string = '';
+  userName!: string;
 
   constructor(
     private route: ActivatedRoute,
     private chatService: ChatService,
     private toastr: ToastrService,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
+    this.accountService.getUserNameByToken().subscribe(response => {
+      this.userName = response.userName;
+    });
     this.chatId = this.route.snapshot.paramMap.get('chatId') || '';
     this.loadMessages();
     this.signalRService.startConnection(this.chatId);
-    this.signalRService.addTransferMessageDataListener((chatId, senderId, recipientId, message) => {
+    this.signalRService.addTransferMessageDataListener((chatId, senderId, recipientId, senderName, recipientName, message) => {
       if (chatId === this.chatId) {
-        this.messages.push({ id: '', chatId, senderId, recipientId, content: message, sentAt: new Date() });
+        this.messages.push({ 
+          id: '', 
+          chatId, 
+          senderId, 
+          recipientId, 
+          senderName, 
+          recipientName, 
+          content: message, 
+          sentAt: new Date() 
+        });
       }
     });
   }

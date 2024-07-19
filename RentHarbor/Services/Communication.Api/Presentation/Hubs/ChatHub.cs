@@ -28,12 +28,18 @@ namespace Communication.Api.Hubs
             var messages = await _messageRepository.GetMessagesAsync(userId, chatId);
             var chat = await _chatRepository.GetChatAsync(chatId, userId);
 
+            var recipientId = userId == chat.User1Id ? chat.User2Id : chat.User1Id;
+            var senderName = userId == chat.User1Id ? chat.User1Name : chat.User2Name;
+            var recipientName = userId == chat.User1Id ? chat.User2Name : chat.User1Name;
+
             var message = new Message
             {
                 Id = Guid.NewGuid().ToString(),
                 ChatId = chatId,
-                RecipientId = userId == chat.User1Id ? chat.User2Id : userId,
+                RecipientId = recipientId,
                 SenderId = userId,
+                RecipientName = recipientName,
+                SenderName = senderName,
                 Content = messageContent,
                 SentAt = DateTime.UtcNow
             };
@@ -42,7 +48,7 @@ namespace Communication.Api.Hubs
             await _messageRepository.AddAsync(message);
 
             // Send message to all clients subscribed to the specified chatId
-            await Clients.Group(chatId).SendAsync("ReceiveMessage", chatId, userId, message.RecipientId, messageContent);
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", chatId, userId, message.RecipientId, message.SenderName, message.RecipientName, messageContent);
         }
 
         private async Task<string> GetUserIdFromToken(string accessToekn)

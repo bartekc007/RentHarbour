@@ -69,7 +69,7 @@ export class ChatService {
     return this.http.get<Chat>(url, { headers });
   }
 
-  createChat(offerId: number): Observable<any> {
+  createChat(offerId: number, title: string): Observable<any> {
     let currentToken: string = "";
     this.accountService.getCurrentUserToken().subscribe(token => {
       if(token != null)
@@ -79,7 +79,8 @@ export class ChatService {
       'Authorization': `Bearer ${currentToken}`
     });
     let model: ChatRequest = {
-      offerId: offerId
+      offerId: offerId,
+      title: title
     }
     const url = `${this.baseUrl}chat/CreateChat`;
     return this.http.post<any>(url,model, { headers });

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpResponseModel, User } from '../_models/models';
+import { GetUserNameResponse, HttpResponseModel, User } from '../_models/models';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { Observable, map, take } from 'rxjs';
 
@@ -37,5 +37,17 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  getUserNameByToken(): Observable<GetUserNameResponse>{
+    let currentToken: string = "";
+    this.getCurrentUserToken().subscribe(token => {
+      if(token != null)
+        currentToken = token;
+    });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${currentToken}`
+    });
+    return this.http.get<GetUserNameResponse>(this.baseUrl + 'User/userNameByToken',{headers});
   }
 }

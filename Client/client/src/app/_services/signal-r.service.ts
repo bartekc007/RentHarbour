@@ -39,12 +39,12 @@ export class SignalRService {
     }
   }
 
-  public addTransferMessageDataListener(callback: (chatId: string, senderId: string, recipientId: string, message: string) => void) {
-    this.hubConnection?.on('ReceiveMessage', (chatId: string, senderId: string, recipientId: string, message: string) => {
-        console.log('Received message:', { chatId, senderId, recipientId, message }); // Debugging
-        callback(chatId, senderId, recipientId, message);
+  public addTransferMessageDataListener(callback: (chatId: string, senderId: string, recipientId: string, senderName: string, recipientName: string, message: string) => void) {
+    this.hubConnection?.on('ReceiveMessage', (chatId: string, senderId: string, recipientId: string, senderName: string, recipientName: string, message: string) => {
+      callback(chatId, senderId, recipientId, senderName, recipientName, message);
     });
-}
+  }
+
 
   public async sendMessage(chatId: string, message: string) {
     let currentToken: string = "";

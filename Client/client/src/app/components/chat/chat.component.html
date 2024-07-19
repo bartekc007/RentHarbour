@@ -6,7 +6,7 @@
         <div class="message-sent-at">{{ message.sentAt | date:'shortTime' }}</div>
       </div>
       <div class="message-sender">
-        <span>User:</span>
+        <span>{{ message.senderName === this.userName ? 'Me' : message.senderName }}:</span>
       </div>
     </div>
   </div>
