@@ -1,10 +1,10 @@
-﻿using Catalog.Application.Application.Domains.Property.GetProperties;
-using Catalog.Application.Application.Domains.Property.GetPropertyById.Dto;
-using Catalog.Application.Application.Domains.Property.GetPropertyById;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Catalog.Application.Application.Domains.Property.GetRentedProperites;
 using FluentValidation.AspNetCore;
+using Catalog.Application.Domains.Property.GetProperties;
+using Catalog.Application.Domains.Property.GetPropertyById;
+using Catalog.Application.Domains.Property.GetRentedProperites;
+using Catalog.Application.Domains.Property.GetPropertyById.Dto;
 
 namespace Application.Registration
 {

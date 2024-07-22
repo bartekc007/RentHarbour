@@ -8,6 +8,6 @@ namespace Catalog.Persistance.Repositories.Psql
         Task<bool> ModifyAsync(Rental rental);
         Task<bool> DeleteAsync(string id);
         Task<Rental> GetByIdAsync(string id);
-        Task<IEnumerable<Rental>> GetByUserIdAsync(string userId);
+        Task<IEnumerable<Rental>> GetRentalsByUserIdAsync(string userId);
     }
 }

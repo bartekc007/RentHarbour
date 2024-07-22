@@ -37,11 +37,11 @@ namespace Authorization.Application.Domains.User.Register
                     Username = request.UserName,
                     AccessToken = _jwtService.GenerateAccessToken(user),
                     ReffreshToken = _jwtService.GenerateRefreshToken()
-            };
+                };
             }
             else
             {
-                // Obsłuż błąd tworzenia użytkownika
+                throw new ApplicationException("Registration failed.");
             }
 
             //return result.Succeeded;

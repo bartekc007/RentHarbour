@@ -1,6 +1,6 @@
-﻿using Catalog.Application.Application.Domains.Property.GetProperties;
-using Catalog.Application.Application.Domains.Property.GetPropertyById;
-using Catalog.Application.Application.Domains.Property.GetRentedProperites;
+﻿using Catalog.Application.Domains.Property.GetProperties;
+using Catalog.Application.Domains.Property.GetPropertyById;
+using Catalog.Application.Domains.Property.GetRentedProperites;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RentHarbor.AuthService.Services;

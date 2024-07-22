@@ -6,7 +6,7 @@
         public string PropertyId { get; set; }
         public string RentalRequestId { get; set; }
         public string RenterId { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

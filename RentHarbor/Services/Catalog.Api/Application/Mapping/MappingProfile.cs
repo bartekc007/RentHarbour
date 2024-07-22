@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Catalog.Application.Application.Domains.Property.GetProperties.Dto;
-using Catalog.Application.Application.Domains.Property.GetPropertyById.Dto;
+using Catalog.Application.Domains.Property.GetProperties.Dto;
+using Catalog.Application.Domains.Property.GetPropertyById.Dto;
 using RentHarbor.MongoDb.Entities;
 
 namespace Catalog.Application.Mapping

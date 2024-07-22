@@ -1,13 +1,13 @@
 ﻿using Catalog.Persistance.Entities;
 using Catalog.Persistance.Repositories.Psql;
 using Dapper;
-using Npgsql;
+using System.Data;
 
 public class RentalRepository : IRentalRepository
 {
-    private readonly NpgsqlConnection _connection;
+    private readonly IDbConnection _connection;
 
-    public RentalRepository(NpgsqlConnection connection)
+    public RentalRepository(IDbConnection connection)
     {
         _connection = connection;
     }
@@ -20,10 +20,7 @@ public class RentalRepository : IRentalRepository
         VALUES 
         (@Id, @PropertyId, @RentalRequestId, @RenterId, @StartDate, @EndDate)";
 
-        await _connection.OpenAsync();
-        var result = await _connection.ExecuteAsync(query, rental);
-        await _connection.CloseAsync();
-        return result;
+        return await _connection.ExecuteAsync(query, rental);
     }
 
     public async Task<bool> ModifyAsync(Rental rental)
@@ -37,39 +34,29 @@ public class RentalRepository : IRentalRepository
             EndDate = @EndDate
         WHERE Id = @Id";
 
-        await _connection.OpenAsync();
         var rowsAffected = await _connection.ExecuteAsync(query, rental);
-        await _connection.CloseAsync();
         return rowsAffected > 0;
     }
 
-    public async Task<bool> DeleteAsync(string id)
+    public async Task<bool> DeleteAsync(string rentalId)
     {
         var query = "DELETE FROM Rentals WHERE Id = @Id";
 
-        await _connection.OpenAsync();
-        var rowsAffected = await _connection.ExecuteAsync(query, new { Id = id });
-        await _connection.CloseAsync();
+        var rowsAffected = await _connection.ExecuteAsync(query, new { Id = rentalId });
         return rowsAffected > 0;
     }
 
-    public async Task<Rental> GetByIdAsync(string id)
+    public async Task<Rental> GetByIdAsync(string rentalId)
     {
         var query = "SELECT * FROM Rentals WHERE Id = @Id";
 
-        await _connection.OpenAsync();
-        var rental = await _connection.QuerySingleOrDefaultAsync<Rental>(query, new { Id = id });
-        await _connection.CloseAsync();
-        return rental;
+        return await _connection.QuerySingleOrDefaultAsync<Rental>(query, new { Id = rentalId });
     }
 
-    public async Task<IEnumerable<Rental>> GetByUserIdAsync(string userId)
+    public async Task<IEnumerable<Rental>> GetRentalsByUserIdAsync(string userId)
     {
         var query = "SELECT * FROM Rentals WHERE RenterId = @UserId";
 
-        await _connection.OpenAsync();
-        var rentals = await _connection.QueryAsync<Rental>(query, new { UserId = userId });
-        await _connection.CloseAsync();
-        return rentals;
+        return await _connection.QueryAsync<Rental>(query, new { UserId = userId });
     }
 }

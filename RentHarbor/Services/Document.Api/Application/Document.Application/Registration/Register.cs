@@ -13,7 +13,7 @@ namespace Document.Application.Registration
     {
         public static void RegisterApplicationLayer(this IServiceCollection services)
         {
-            services.AddTransient<IRequestHandler<GetDocumentsByOfferIdQuery, List<OfferDocumentDto>>, GetDocumentsByOfferIdHandler>();
+            services.AddTransient<IRequestHandler<GetDocumentsByOfferIdQuery, List<OfferDocumentDto>>, GetDocumentsByOfferIdQueryHandler>();
             services.AddTransient<IRequestHandler<AddDocumentCommand, OfferDocumentDto>, AddDocumentCommandHandler>();
             services.AddTransient<IRequestHandler<GetDocumentByIdQuery, OfferDocumentDto>, GetDocumentByIdQueryHandler>();
 

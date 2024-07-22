@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Data;
 
 namespace Catalog.Persistance.Context
 {
-    public class OrderDbContext
+    public class OrderDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
