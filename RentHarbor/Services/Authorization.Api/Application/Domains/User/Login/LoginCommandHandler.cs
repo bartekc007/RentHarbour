@@ -28,24 +28,20 @@ namespace Authorization.Application.Domains.User.Login
 
             if (user != null)
             {
-                // Sprawdź, czy konto jest zablokowane
                 if (user.LockoutEnd != null && user.LockoutEnd > DateTime.Now)
                 {
                     throw new ApplicationException("Account is locked. Please try again later.");
                 }
 
-                // Sprawdź, czy hasło jest poprawne
                 var isPasswordValid = await VerifyPasswordAsync(user, request.Password);
 
                 if (!isPasswordValid)
                 {
-                    // Inkrementuj licznik nieudanych prób logowania
                     user.AccessFailedCount++;
 
-                    // Zablokuj konto, jeśli przekroczyło limit nieudanych prób
                     if (user.AccessFailedCount >= 5)
                     {
-                        user.LockoutEnd = DateTime.Now.AddMinutes(10); // Zablokuj na 10 minut
+                        user.LockoutEnd = DateTime.Now.AddMinutes(10); 
                     }
 
                     await _authDbContext.SaveChangesAsync();
@@ -53,16 +49,13 @@ namespace Authorization.Application.Domains.User.Login
                     throw new ApplicationException("Invalid username or password.");
                 }
 
-                // Zresetuj licznik nieudanych prób logowania
                 user.AccessFailedCount = 0;
                 user.LockoutEnd = null;
                 await _authDbContext.SaveChangesAsync();
 
-                // Generuj tokeny JWT
                 var accessToken = _jwtService.GenerateAccessToken(user);
                 var refreshToken = _jwtService.GenerateRefreshToken();
 
-                // Zapisz refreshToken w bazie danych (opcjonalne)
 
                 return new LoginResult
                 {
@@ -73,7 +66,6 @@ namespace Authorization.Application.Domains.User.Login
             }
             else
             {
-                // Obsługa braku użytkownika
                 throw new ApplicationException("Invalid username or password.");
             }
         }
@@ -86,4 +78,3 @@ namespace Authorization.Application.Domains.User.Login
     }
 }
 
-// C:\Users\barte\.aspnet\https

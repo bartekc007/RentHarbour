@@ -1,3 +1,4 @@
+using Communication.Api.Healthchecks;
 using Communication.Api.Hubs;
 using Communication.Application.Mapping;
 using Communication.Application.Registration;
@@ -22,7 +23,6 @@ namespace Communication.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterPersistanceLayer(Configuration);
@@ -43,15 +43,17 @@ namespace Communication.Api
                 options.AddPolicy("AllowSpecificOrigins",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:4200") // Zmieñ na w³aœciwy adres frontend
+                        builder.WithOrigins("https://localhost:4200")
                                .AllowAnyHeader()
                                .AllowAnyMethod()
                                .AllowCredentials();
                     });
             });
+            services.AddHealthChecks()
+                .AddCheck<ReadinessHealthCheck>("readiness")
+                .AddCheck<LivenessHealthCheck>("liveness");
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("AllowSpecificOrigins");
@@ -71,6 +73,8 @@ namespace Communication.Api
                 endpoints.MapControllers();
 
                 endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHealthChecks("/health/readiness");
+                endpoints.MapHealthChecks("/health/live");
             });
         }
     }

@@ -35,7 +35,6 @@ namespace Authorization.Application.Domains.User.RefreshToken
             var accessToken = _jwtService.GenerateAccessToken(user);
             var newRefreshToken = _jwtService.GenerateRefreshToken();
 
-            // Aktualizuj token odświeżania w bazie danych
             user.RefreshToken = newRefreshToken;
             await _userManager.UpdateAsync(user);
 

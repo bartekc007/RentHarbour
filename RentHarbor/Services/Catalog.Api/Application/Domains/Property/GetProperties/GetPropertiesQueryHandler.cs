@@ -20,7 +20,6 @@ namespace Catalog.Application.Domains.Property.GetProperties
         {
             var filter = BuildFilters(request);
 
-            // Wykonanie kwerendy z zastosowaniem filtra
             var properties = await _context.Properties.Find(filter).ToListAsync(cancellationToken);
             var propertyDtoList = _mapper.Map<List<PropertyDto>>(properties);
 
@@ -32,9 +31,8 @@ namespace Catalog.Application.Domains.Property.GetProperties
 
         private FilterDefinition<RentHarbor.MongoDb.Entities.Property> BuildFilters(GetPropertiesQuery request)
         {
-            // Budowanie filtru kwerendy
             var filterBuilder = Builders<RentHarbor.MongoDb.Entities.Property>.Filter;
-            var filter = filterBuilder.Empty; // Zaczynamy od pustego filtru
+            var filter = filterBuilder.Empty; 
 
             if (request.PriceMin.HasValue)
             {

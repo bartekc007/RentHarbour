@@ -35,7 +35,6 @@ namespace Document.Unit.Tests.Application.Domains.Document.AddDocument
         [Fact]
         public async Task Handle_ShouldReturnOfferDocumentDto_WhenDocumentIsAddedSuccessfully()
         {
-            // Arrange
             var fileMock = new Mock<IFormFile>();
             var content = "Hello World from a Fake File";
             var fileName = "test.pdf";
@@ -77,10 +76,8 @@ namespace Document.Unit.Tests.Application.Domains.Document.AddDocument
             _documentRepositoryMock.Setup(repo => repo.AddDocumentAsync(It.IsAny<OfferDocument>())).Returns(Task.CompletedTask);
             _mapperMock.Setup(m => m.Map<OfferDocumentDto>(It.IsAny<OfferDocument>())).Returns(new OfferDocumentDto { DocumentId = "document123" });
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal("document123", result.DocumentId);
         }
@@ -88,20 +85,16 @@ namespace Document.Unit.Tests.Application.Domains.Document.AddDocument
         [Fact]
         public async Task Handle_ShouldReturnNull_WhenRequestIsNull()
         {
-            // Arrange
             AddDocumentCommand command = null;
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.Null(result);
         }
 
         [Fact]
         public async Task Handle_ShouldReturnNull_WhenOfferIdIsInvalid()
         {
-            // Arrange
             var command = new AddDocumentCommand
             {
                 OfferId = 0,
@@ -117,17 +110,14 @@ namespace Document.Unit.Tests.Application.Domains.Document.AddDocument
 
             _rentalRequestRepositoryMock.Setup(repo => repo.GetRentalRequestByOfferIdAsync(command.OfferId)).ReturnsAsync(rentalRequest);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.Null(result);
         }
 
         [Fact]
         public async Task Handle_ShouldThrowException_WhenRepositoryThrowsException()
         {
-            // Arrange
             var fileMock = new Mock<IFormFile>();
             var content = "Hello World from a Fake File";
             var fileName = "test.pdf";
@@ -150,7 +140,6 @@ namespace Document.Unit.Tests.Application.Domains.Document.AddDocument
 
             _documentRepositoryMock.Setup(repo => repo.MarkDocumentsAsNotLatestAsync(command.OfferId)).ThrowsAsync(new Exception("Database error"));
 
-            // Act & Assert
             await Assert.ThrowsAsync<Exception>(() => _handler.Handle(command, CancellationToken.None));
         }
     }

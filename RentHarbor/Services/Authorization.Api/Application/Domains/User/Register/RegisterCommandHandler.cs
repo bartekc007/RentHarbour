@@ -44,7 +44,6 @@ namespace Authorization.Application.Domains.User.Register
                 throw new ApplicationException("Registration failed.");
             }
 
-            //return result.Succeeded;
             return new RegisterResult();
         }
     }

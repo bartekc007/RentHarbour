@@ -17,7 +17,6 @@ namespace Authorization.Persistance.Extentions
         {
             if (!dbContext.Users.Any())
             {
-                // Dodaj przykładowych użytkowników
                 await AddSampleUsersAsync(userManager);
             }
         }

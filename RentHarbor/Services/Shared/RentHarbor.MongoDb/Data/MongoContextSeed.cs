@@ -25,13 +25,6 @@ namespace RentHarbor.MongoDb.Data
 
         private List<Property> GetSeedData()
         {
-            /*var path = Directory.GetCurrentDirectory();
-            string photo1Path = "./ExamplePhotos/photo1.jpg";
-            string photo2Path = "./ExamplePhotos/photo2.jpg";
-
-            byte[] imageData1 = ReadImageFile(photo1Path);
-            byte[] imageData2 = ReadImageFile(photo2Path);*/
-
             var properties = new List<Property>
             {
                 new Property
@@ -55,18 +48,7 @@ namespace RentHarbor.MongoDb.Data
                     IsActive = true,
                     Photos = new List<BsonDocument>
                     {
-                        /*new BsonDocument
-                        {
-                            { "Name", "photo1.jpg" },
-                            { "Data", new BsonBinaryData(imageData1) },
-                            { "ContentType", "image/jpeg" }
-                        },
-                        new BsonDocument
-                        {
-                            { "Name", "photo2.jpg" },
-                            { "Data", new BsonBinaryData(imageData2) },
-                            { "ContentType", "image/jpeg" }
-                        }*/
+
                     }
                 },
                 new Property
@@ -90,18 +72,7 @@ namespace RentHarbor.MongoDb.Data
                     IsActive = true,
                     Photos = new List<BsonDocument>
                     {
-                        /*new BsonDocument
-                        {
-                            { "Name", "photo1.jpg" },
-                            { "Data", new BsonBinaryData(imageData1) },
-                            { "ContentType", "image/jpeg" }
-                        },
-                        new BsonDocument
-                        {
-                            { "Name", "photo2.jpg" },
-                            { "Data", new BsonBinaryData(imageData2) },
-                            { "ContentType", "image/jpeg" }
-                        }*/
+
                     }
                 },
                 new Property
@@ -125,18 +96,7 @@ namespace RentHarbor.MongoDb.Data
                     IsActive = true,
                     Photos = new List<BsonDocument>
                     {
-                        /*new BsonDocument
-                        {
-                            { "Name", "photo1.jpg" },
-                            { "Data", new BsonBinaryData(imageData1) },
-                            { "ContentType", "image/jpeg" }
-                        },
-                        new BsonDocument
-                        {
-                            { "Name", "photo2.jpg" },
-                            { "Data", new BsonBinaryData(imageData2) },
-                            { "ContentType", "image/jpeg" }
-                        }*/
+
                     }
                 },
                 new Property
@@ -160,18 +120,7 @@ namespace RentHarbor.MongoDb.Data
                     IsActive = true,
                     Photos = new List<BsonDocument>
                     {
-                        /*new BsonDocument
-                        {
-                            { "Name", "photo1.jpg" },
-                            { "Data", new BsonBinaryData(imageData1) },
-                            { "ContentType", "image/jpeg" }
-                        },
-                        new BsonDocument
-                        {
-                            { "Name", "photo2.jpg" },
-                            { "Data", new BsonBinaryData(imageData2) },
-                            { "ContentType", "image/jpeg" }
-                        }*/
+
                     }
                 },
             };

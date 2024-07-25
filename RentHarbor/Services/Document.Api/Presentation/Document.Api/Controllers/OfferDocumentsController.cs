@@ -27,14 +27,12 @@ namespace Document.Api.Controllers
         [HttpPost("UploadDocument")]
         public async Task<IActionResult> UploadDocument([FromForm] AddDocumentCommand request)
         {
-            // Authorization logic
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
             JsonDocument doc = JsonDocument.Parse(userIdJson);
             JsonElement root = doc.RootElement;
             string userId = root.GetProperty("userId").GetString();
 
-            // Create the command
             var command = new AddDocumentCommand
             {
                 OfferId = request.OfferId,
@@ -42,7 +40,6 @@ namespace Document.Api.Controllers
                 File = request.File
             };
 
-            // Handle the command
             var document = await _mediator.Send(command);
 
             return Ok(new { Data = document.DocumentId, document.FileName, document.UploadDate });

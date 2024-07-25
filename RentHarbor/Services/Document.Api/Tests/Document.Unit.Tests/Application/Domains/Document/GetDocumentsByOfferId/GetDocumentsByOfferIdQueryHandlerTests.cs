@@ -23,7 +23,6 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentsByOfferId
         [Fact]
         public async Task Handle_ShouldReturnDocuments_WhenDocumentsExist()
         {
-            // Arrange
             var offerId = 1;
             var query = new GetDocumentsByOfferIdQuery { OfferId = offerId };
 
@@ -68,10 +67,8 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentsByOfferId
             _documentRepositoryMock.Setup(repo => repo.GetDocumentsByOfferIdAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(documents);
             _mapperMock.Setup(m => m.Map<IEnumerable<OfferDocumentDto>>(documents)).Returns(documentDtos);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count());
         }
@@ -79,17 +76,14 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentsByOfferId
         [Fact]
         public async Task Handle_ShouldReturnEmptyList_WhenNoDocumentsExist()
         {
-            // Arrange
             var offerId = 1;
             var query = new GetDocumentsByOfferIdQuery { OfferId = offerId };
 
             _documentRepositoryMock.Setup(repo => repo.GetDocumentsByOfferIdAsync(It.IsAny<int>(), It.IsAny<string>())).ReturnsAsync(new List<OfferDocument>());
             _mapperMock.Setup(m => m.Map<IEnumerable<OfferDocumentDto>>(It.IsAny<IEnumerable<OfferDocument>>())).Returns(new List<OfferDocumentDto>());
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Empty(result);
         }

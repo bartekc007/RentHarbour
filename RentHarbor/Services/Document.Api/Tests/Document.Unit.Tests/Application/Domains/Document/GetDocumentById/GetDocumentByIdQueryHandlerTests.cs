@@ -19,7 +19,6 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentById
         [Fact]
         public async Task Handle_ShouldReturnDocumentDto_WhenDocumentExists()
         {
-            // Arrange
             var documentId = "5f47ac7b8452ef001d4fb9c5";
             var query = new GetDocumentByIdQuery { DocumentId = documentId };
 
@@ -35,10 +34,8 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentById
 
             _documentRepositoryMock.Setup(repo => repo.GetDocumentByIdAsync(documentId)).ReturnsAsync(document);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(documentId, result.DocumentId);
         }
@@ -46,16 +43,13 @@ namespace Document.Unit.Tests.Application.Domains.Document.GetDocumentById
         [Fact]
         public async Task Handle_ShouldReturnNull_WhenDocumentDoesNotExist()
         {
-            // Arrange
             var documentId = "5f47ac7b8452ef001d4fb9c5";
             var query = new GetDocumentByIdQuery { DocumentId = documentId };
 
             _documentRepositoryMock.Setup(repo => repo.GetDocumentByIdAsync(documentId)).ReturnsAsync((OfferDocument)null);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.Null(result);
         }
     }

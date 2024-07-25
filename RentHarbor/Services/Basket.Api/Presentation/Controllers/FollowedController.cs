@@ -24,7 +24,6 @@ namespace Basket.Api.Controllers
         [HttpPost("update")]
         public async Task<ActionResult> UpdateFollowedProperties([FromBody] UpdateFollowedPropertiesRequest request)
         {
-            // Pobierz obiekt kontekstu HTTP z akcesorem
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userId = await _authorizationService.GetUserIdFromTokenAsync(token);
 
@@ -47,22 +46,11 @@ namespace Basket.Api.Controllers
         [HttpPost("getAll")]
         public async Task<ActionResult> GetAllFollowedProperties([FromBody] GetFollowedPropertiesQuery request)
         {
-            // Pobierz obiekt kontekstu HTTP z akcesorem
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userId = await _authorizationService.GetUserIdFromTokenAsync(token);
 
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
-
-/*            var command = new UpdateFollowedPropertyCommand()
-            {
-                UserId = userId,
-                PropertyId = request.PropertyId,
-                Action = request.Action,
-                Id = request.Id
-            };
-
-            var result = _mediator.Send(command);*/
 
             return Ok(new { Status = HttpStatusCode.OK });
         }

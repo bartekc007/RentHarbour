@@ -37,7 +37,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
         [Fact]
         public async Task Handle_ShouldReturnRegisterResult_WhenRegistrationIsSuccessful()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = "validUser",
@@ -69,10 +68,8 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
             _jwtServiceMock.Setup(js => js.GenerateRefreshToken())
                 .Returns("refreshToken");
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.Equal(command.UserName, result.Username);
             Assert.Equal("accessToken", result.AccessToken);
             Assert.Equal("refreshToken", result.ReffreshToken);
@@ -81,7 +78,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
         [Fact]
         public async Task Handle_ShouldThrowException_WhenRegistrationFails()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = "validUser",
@@ -97,7 +93,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
             _userManagerMock.Setup(um => um.CreateAsync(It.IsAny<ApplicationUser>(), command.Password))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError { Description = "Registration failed." }));
 
-            // Act & Assert
             await Assert.ThrowsAsync<ApplicationException>(() => _handler.Handle(command, CancellationToken.None));
         }
     }

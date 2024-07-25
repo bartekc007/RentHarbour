@@ -31,7 +31,6 @@ namespace Authorization.Api.Controllers.User
         {
             var result = await mediator.Send(command);
 
-            // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
             return Ok(new { Data = result, Status = HttpStatusCode.OK, Message = "User registered successfully." });
         }
 
@@ -40,7 +39,6 @@ namespace Authorization.Api.Controllers.User
         {
             var result = await mediator.Send(command);
 
-            // Utwórz odpowiedź HTTP z nagłówkiem zawierającym token JWT
             HttpContext.Response.Headers.Add("Authorization", "Bearer " + result.AccessToken);
             return Ok(new { Data = result, Status = HttpStatusCode.OK, Message = "User registered successfully." });
         }
@@ -49,7 +47,6 @@ namespace Authorization.Api.Controllers.User
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken()
         {
-            // Pobierz token odświeżania z nagłówka Authorization
             string refreshToken = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
             var command = new RefreshTokenCommand
@@ -66,13 +63,11 @@ namespace Authorization.Api.Controllers.User
         [HttpGet("userId")]
         public async Task<IActionResult> GetUserIdFromTokenAsync()
         {
-            // Pobierz obecne żądanie
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userId = jwtService.GetPrincipalFromToken(token);
 
             if (string.IsNullOrEmpty(userId))
             {
-                // Użytkownik nie jest uwierzytelniony lub nie ma wymaganego tokenu
                 return Unauthorized();
             }
 
@@ -93,7 +88,6 @@ namespace Authorization.Api.Controllers.User
             var userId = jwtService.GetPrincipalFromToken(token);
             if (string.IsNullOrEmpty(userId))
             {
-                // Użytkownik nie jest uwierzytelniony lub nie ma wymaganego tokenu
                 return Unauthorized();
             }
             var user = await _authDbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);

@@ -32,7 +32,6 @@ namespace Catalog.Unit.Tests.Application.Domains.GetProperties
         [Fact]
         public async Task Handle_ShouldReturnProperties_WhenPropertiesExist()
         {
-            // Arrange
             var query = new GetPropertiesQuery { City = "SampleCity" };
 
             var mockCollection = new Mock<IMongoCollection<Property>>();
@@ -60,10 +59,8 @@ namespace Catalog.Unit.Tests.Application.Domains.GetProperties
 
             _mapperMock.Setup(m => m.Map<List<PropertyDto>>(_properties)).Returns(propertyDtos);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result.Data);
             Assert.Equal(2, result.Data.Count);
             Assert.Equal("Property1", result.Data[0].Name);
@@ -73,7 +70,6 @@ namespace Catalog.Unit.Tests.Application.Domains.GetProperties
         [Fact]
         public async Task Handle_ShouldReturnEmptyList_WhenNoPropertiesExist()
         {
-            // Arrange
             var query = new GetPropertiesQuery { City = "NonExistingCity" };
             var emptyProperties = new List<Property>();
 
@@ -98,10 +94,8 @@ namespace Catalog.Unit.Tests.Application.Domains.GetProperties
 
             _mapperMock.Setup(m => m.Map<List<PropertyDto>>(emptyProperties)).Returns(propertyDtos);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result.Data);
             Assert.Empty(result.Data);
         }

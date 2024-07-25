@@ -62,14 +62,12 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
             }
             catch (Exception ex)
             {
-                // Log the exception
                 return false;
             }
         }
 
         private async Task AcceptRental(RentalRequest rentalOffer)
         {
-            // Create a new rental
             var rental = new Rental
             {
                 Id = Guid.NewGuid().ToString(),
@@ -107,8 +105,8 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
                     payment.Id = Guid.NewGuid().ToString();
                     payment.UserId = rentalRequest.UserId;
                     payment.PropertyId = rentalRequest.PropertyId;
-                    payment.IsPaid = false; // Initial state
-                    payment.PaidDate = null; // Initial state
+                    payment.IsPaid = false;
+                    payment.PaidDate = null;
 
                     await _paymentRepository.AddAsync(payment);
                 }
@@ -132,13 +130,12 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
                 {
                     PaymentDate = lastDayOfMonth,
                     Amount = 1000,
-                    IsPaid = false, // Initial state
-                    PaidDate = null // Initial state
+                    IsPaid = false,
+                    PaidDate = null
                 };
 
                 payments.Add(payment);
 
-                // Move to the next month
                 currentDate = lastDayOfMonth.AddMonths(1);
                 lastDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
             }
@@ -148,9 +145,8 @@ namespace Ordering.Application.Domain.Order.AcceptRentalRequest
 
         private decimal CalculatePaymentAmount(DateTime startDate, DateTime endDate)
         {
-            // Example calculation, adjust as per your business logic
             int totalMonths = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month + 1;
-            decimal monthlyPayment = 1000; // Example amount per month
+            decimal monthlyPayment = 1000;
             decimal totalAmount = totalMonths * monthlyPayment;
             return totalAmount;
         }

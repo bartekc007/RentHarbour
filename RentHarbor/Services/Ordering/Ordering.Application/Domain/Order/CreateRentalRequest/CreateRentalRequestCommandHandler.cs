@@ -20,6 +20,10 @@ namespace Ordering.Application.Domain.Order.CreateRentalRequest
         {
             var OwnerId = await _propertyrepository.GetOwnerIdByPropertyIdAsync(request.PropertyId);
 
+            if (string.IsNullOrEmpty(OwnerId))
+            {
+                throw new Exception("User not found");
+            }
             var rentalRequest = new RentalRequest
             {
                 PropertyId = request.PropertyId,

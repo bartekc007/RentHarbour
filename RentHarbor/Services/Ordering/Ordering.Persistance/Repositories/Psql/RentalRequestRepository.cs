@@ -124,7 +124,7 @@ public class RentalRequestRepository : IRentalRequestRepository
         }
     }
 
-    public async Task<RentalRequest> GetRentalRequestByOwnerIdAndOfferIdAsync(string userId, int offerId)
+    public async Task<RentalRequest?> GetRentalRequestByOwnerIdAndOfferIdAsync(string userId, int offerId)
     {
         try
         {

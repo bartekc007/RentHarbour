@@ -58,7 +58,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Login
         [Fact]
         public async Task Handle_ShouldReturnLoginResult_WhenCredentialsAreValid()
         {
-            // Arrange
             var command = new LoginCommand { UserName = "validUser", Password = "validPassword" };
             var user = new ApplicationUser
             {
@@ -84,10 +83,8 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Login
             _jwtServiceMock.Setup(js => js.GenerateRefreshToken())
                 .Returns("refreshToken");
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.Equal(command.UserName, result.UserName);
             Assert.Equal("accessToken", result.AccessToken);
             Assert.Equal("refreshToken", result.RefreshToken);
@@ -96,17 +93,14 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Login
         [Fact]
         public async Task Handle_ShouldThrowException_WhenUserDoesNotExist()
         {
-            // Arrange
             var command = new LoginCommand { UserName = "invalidUser", Password = "password" };
 
-            // Act & Assert
             await Assert.ThrowsAsync<ApplicationException>(() => _handler.Handle(command, CancellationToken.None));
         }
 
         [Fact]
         public async Task Handle_ShouldThrowException_WhenPasswordIsInvalid()
         {
-            // Arrange
             var command = new LoginCommand { UserName = "validUser", Password = "invalidPassword" };
             var user = new ApplicationUser
             {
@@ -127,7 +121,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Login
             _userManagerMock.Setup(um => um.CheckPasswordAsync(It.IsAny<ApplicationUser>(), command.Password))
                 .ReturnsAsync(false);
 
-            // Act & Assert
             await Assert.ThrowsAsync<ApplicationException>(() => _handler.Handle(command, CancellationToken.None));
         }
     }

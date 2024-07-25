@@ -15,39 +15,30 @@ namespace Catalog.Unit.Tests.Application.Domains.GetPropertyById
         [Fact]
         public void Validate_ShouldHaveNoErrors_WhenQueryIsValid()
         {
-            // Arrange
             var query = new GetPropertyByIdQuery("valid-property-id");
 
-            // Act
             var result = _validator.TestValidate(query);
 
-            // Assert
             result.ShouldNotHaveAnyValidationErrors();
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenPropertyIdIsEmpty()
         {
-            // Arrange
             var query = new GetPropertyByIdQuery("");
 
-            // Act
             var result = _validator.TestValidate(query);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(q => q.PropertyId).WithErrorMessage("PropertyId cannot be empty.");
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenPropertyIdContainsInvalidCharacters()
         {
-            // Arrange
             var query = new GetPropertyByIdQuery("invalid-property-id!");
 
-            // Act
             var result = _validator.TestValidate(query);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(q => q.PropertyId).WithErrorMessage("PropertyId contains invalid characters.");
         }
     }

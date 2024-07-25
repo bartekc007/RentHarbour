@@ -8,7 +8,7 @@ namespace Document.Application.Domain.Document.GetDocumentById
         {
             RuleFor(query => query.DocumentId)
                 .NotEmpty().WithMessage("DocumentId cannot be empty.")
-                .Matches("^[a-zA-Z0-9-]+$").WithMessage("DocumentId contains invalid characters."); // Możesz dostosować regex do swojego formatu DocumentId
+                .Matches("^[a-zA-Z0-9-]+$").WithMessage("DocumentId contains invalid characters.");
         }
     }
 }

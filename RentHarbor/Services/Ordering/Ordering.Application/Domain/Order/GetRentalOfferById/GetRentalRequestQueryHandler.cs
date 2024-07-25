@@ -18,10 +18,8 @@ namespace Ordering.Application.Domain.Order.GetRentalOfferById
 
         public async Task<GetRentalRequestQueryResult> Handle(GetRentalRequestQuery request, CancellationToken cancellationToken)
         {
-            // Pobierz pojedynczą ofertę wynajmu na podstawie ownerId i offerId
             var rentalRequest = await _rentalRepository.GetRentalRequestByOwnerIdAndOfferIdAsync(request.OwnerId, request.OfferId);
 
-            // Sprawdź, czy oferta wynajmu została znaleziona
             if (rentalRequest == null)
             {
                 return new GetRentalRequestQueryResult

@@ -4,74 +4,72 @@ using Catalog.Persistance.Repositories.MongoDb;
 using RentHarbor.MongoDb.Data;
 using RentHarbor.MongoDb.Entities;
 
-public class PropertyRepositoryTests
+namespace Catalog.Unit.Tests.Persistance.Repositories
 {
-    private readonly Mock<IMongoContext> _contextMock;
-    private readonly Mock<IMongoCollection<Property>> _propertyCollectionMock;
-    private readonly PropertyRepository _repository;
-
-    public PropertyRepositoryTests()
+    public class PropertyRepositoryTests
     {
-        _contextMock = new Mock<IMongoContext>();
-        _propertyCollectionMock = new Mock<IMongoCollection<Property>>();
-        _contextMock.SetupGet(ctx => ctx.Properties).Returns(_propertyCollectionMock.Object);
-        _repository = new PropertyRepository(_contextMock.Object);
-    }
+        private readonly Mock<IMongoContext> _contextMock;
+        private readonly Mock<IMongoCollection<Property>> _propertyCollectionMock;
+        private readonly PropertyRepository _repository;
 
-    [Fact]
-    public async Task GetPropertyByIdAsync_ShouldReturnProperty_WhenPropertyExists()
-    {
-        // Arrange
-        var propertyId = "1";
-        var property = new Property { Id = propertyId, Name = "Property1" };
+        public PropertyRepositoryTests()
+        {
+            _contextMock = new Mock<IMongoContext>();
+            _propertyCollectionMock = new Mock<IMongoCollection<Property>>();
+            _contextMock.SetupGet(ctx => ctx.Properties).Returns(_propertyCollectionMock.Object);
+            _repository = new PropertyRepository(_contextMock.Object);
+        }
 
-        var mockCursor = new Mock<IAsyncCursor<Property>>();
-        mockCursor.Setup(_ => _.Current).Returns(new List<Property> { property });
-        mockCursor
-            .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
-            .Returns(true)
-            .Returns(false);
-        mockCursor
-            .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
-            .Returns(Task.FromResult(true))
-            .Returns(Task.FromResult(false));
+        [Fact]
+        public async Task GetPropertyByIdAsync_ShouldReturnProperty_WhenPropertyExists()
+        {
+            var propertyId = "1";
+            var property = new Property { Id = propertyId, Name = "Property1" };
 
-        _propertyCollectionMock.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<Property>>(), It.IsAny<FindOptions<Property>>(), default))
-            .ReturnsAsync(mockCursor.Object);
+            var mockCursor = new Mock<IAsyncCursor<Property>>();
+            mockCursor.Setup(_ => _.Current).Returns(new List<Property> { property });
+            mockCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            mockCursor
+                .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true))
+                .Returns(Task.FromResult(false));
 
-        // Act
-        var result = await _repository.GetPropertyByIdAsync(propertyId);
+            _propertyCollectionMock.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<Property>>(), It.IsAny<FindOptions<Property>>(), default))
+                .ReturnsAsync(mockCursor.Object);
 
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(propertyId, result.Id);
-        Assert.Equal("Property1", result.Name);
-    }
+            var result = await _repository.GetPropertyByIdAsync(propertyId);
 
-    [Fact]
-    public async Task GetPropertyByIdAsync_ShouldReturnNull_WhenPropertyDoesNotExist()
-    {
-        // Arrange
-        var propertyId = "1";
+            Assert.NotNull(result);
+            Assert.Equal(propertyId, result.Id);
+            Assert.Equal("Property1", result.Name);
+        }
 
-        var mockCursor = new Mock<IAsyncCursor<Property>>();
-        mockCursor.Setup(_ => _.Current).Returns(new List<Property>());
-        mockCursor
-            .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
-            .Returns(true)
-            .Returns(false);
-        mockCursor
-            .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
-            .Returns(Task.FromResult(true))
-            .Returns(Task.FromResult(false));
+        [Fact]
+        public async Task GetPropertyByIdAsync_ShouldReturnNull_WhenPropertyDoesNotExist()
+        {
+            var propertyId = "1";
 
-        _propertyCollectionMock.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<Property>>(), It.IsAny<FindOptions<Property>>(), default))
-            .ReturnsAsync(mockCursor.Object);
+            var mockCursor = new Mock<IAsyncCursor<Property>>();
+            mockCursor.Setup(_ => _.Current).Returns(new List<Property>());
+            mockCursor
+                .SetupSequence(_ => _.MoveNext(It.IsAny<CancellationToken>()))
+                .Returns(true)
+                .Returns(false);
+            mockCursor
+                .SetupSequence(_ => _.MoveNextAsync(It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true))
+                .Returns(Task.FromResult(false));
 
-        // Act
-        var result = await _repository.GetPropertyByIdAsync(propertyId);
+            _propertyCollectionMock.Setup(c => c.FindAsync(It.IsAny<FilterDefinition<Property>>(), It.IsAny<FindOptions<Property>>(), default))
+                .ReturnsAsync(mockCursor.Object);
 
-        // Assert
-        Assert.Null(result);
+            var result = await _repository.GetPropertyByIdAsync(propertyId);
+
+            Assert.Null(result);
+        }
     }
 }
+

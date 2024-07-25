@@ -23,23 +23,22 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.GetFollowedProperties
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertiesExist()
         {
-            // Arrange
             var userId = "test_user";
             var UserPropertiesroperties = new List<UserProperty>
-        {
-            new UserProperty { Id = "property1" },
-            new UserProperty { Id = "property2" }
-        };
+            {
+                new UserProperty { Id = "property1" },
+                new UserProperty { Id = "property2" }
+            };
             var properties = new List<Property>
-        {
-            new Property { Id = "property1" },
-            new Property { Id = "property2" }
-        };
+            {
+                new Property { Id = "property1" },
+                new Property { Id = "property2" }
+            };
             var propertyDtos = new List<PropertyDto>
-        {
-            new PropertyDto { Id = "property1" },
-            new PropertyDto { Id = "property2" }
-        };
+            {
+                new PropertyDto { Id = "property1" },
+                new PropertyDto { Id = "property2" }
+            };
 
             _propertyRepositoryMock.Setup(repo => repo.GetUserPropertiesByUserIdAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(UserPropertiesroperties));
@@ -50,10 +49,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.GetFollowedProperties
 
             var query = new GetFollowedPropertiesQuery { UserId = userId };
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.NotNull(result.Data);
             Assert.Equal(2, result.Data.Count);
@@ -62,7 +59,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.GetFollowedProperties
         [Fact]
         public async Task Handle_ShouldReturnFailureResult_WhenExceptionIsThrown()
         {
-            // Arrange
             var userId = "test_user";
 
             _propertyRepositoryMock.Setup(repo => repo.GetUserPropertiesByUserIdAsync(It.IsAny<string>()))
@@ -70,10 +66,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.GetFollowedProperties
 
             var query = new GetFollowedPropertiesQuery { UserId = userId };
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.False(result.Success);
             Assert.Equal("Database error", result.ErrorMessage);
         }

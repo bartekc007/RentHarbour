@@ -16,26 +16,20 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.GetFollowedProperties
         [Fact]
         public void Validate_ShouldHaveNoErrors_WhenUserIdIsValid()
         {
-            // Arrange
             var query = new GetFollowedPropertiesQuery { UserId = "valid_user_id" };
 
-            // Act
             var result = _validator.TestValidate(query);
 
-            // Assert
             result.ShouldNotHaveAnyValidationErrors();
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenUserIdIsEmpty()
         {
-            // Arrange
             var query = new GetFollowedPropertiesQuery { UserId = string.Empty };
 
-            // Act
             var result = _validator.TestValidate(query);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(q => q.UserId).WithErrorMessage("UserId is required.");
         }
     }

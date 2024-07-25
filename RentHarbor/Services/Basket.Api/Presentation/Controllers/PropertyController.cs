@@ -23,7 +23,6 @@ namespace Basket.Api.Controllers
         [HttpPost("getAllFollowed")]
         public async Task<ActionResult> GetAllFollowedProperties([FromBody] UpdateBasketRequest request)
         {
-            // Pobierz obiekt kontekstu HTTP z akcesorem
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userId = await _authorizationService.GetUserIdFromTokenAsync(token);
 

@@ -29,20 +29,16 @@ namespace Basket.Unit.Tests.Persistance.Repositories
         [Fact]
         public async Task AddPropertyAsync_ShouldInsertProperty()
         {
-            // Arrange
             var property = new Property { Id = ObjectId.GenerateNewId().ToString(), UserId = "user123" };
 
-            // Act
             await _repository.AddPropertyAsync(property);
 
-            // Assert
             _propertyCollectionMock.Verify(coll => coll.InsertOneAsync(property, null, default), Times.Once);
         }
 
         [Fact]
         public async Task UpdatePropertyAsync_ShouldUpdateProperty()
         {
-            // Arrange
             var property = new Property { Id = ObjectId.GenerateNewId().ToString(), UserId = "user123" };
             var updateResultMock = new Mock<ReplaceOneResult>();
             updateResultMock.SetupGet(ur => ur.IsAcknowledged).Returns(true);
@@ -51,30 +47,24 @@ namespace Basket.Unit.Tests.Persistance.Repositories
             _propertyCollectionMock.Setup(coll => coll.ReplaceOneAsync(It.IsAny<FilterDefinition<Property>>(), property, It.IsAny<ReplaceOptions>(), default))
                 .ReturnsAsync(updateResultMock.Object);
 
-            // Act
             var result = await _repository.UpdatePropertyAsync(property);
 
-            // Assert
             Assert.True(result);
         }
 
         [Fact]
         public async Task AddUserPropertyAsync_ShouldInsertUserProperty()
         {
-            // Arrange
             var userProperty = new UserProperty { Id = ObjectId.GenerateNewId().ToString(), UserId = "user123", PropertyId = "property123" };
 
-            // Act
             await _repository.AddUserPropertyAsync(userProperty);
 
-            // Assert
             _userPropertyCollectionMock.Verify(coll => coll.InsertOneAsync(userProperty, null, default), Times.Once);
         }
 
         [Fact]
         public async Task RemoveUserPropertyAsync_ShouldDeleteUserProperty()
         {
-            // Arrange
             var deleteResultMock = new Mock<DeleteResult>();
             deleteResultMock.SetupGet(dr => dr.IsAcknowledged).Returns(true);
             deleteResultMock.SetupGet(dr => dr.DeletedCount).Returns(1);
@@ -82,10 +72,8 @@ namespace Basket.Unit.Tests.Persistance.Repositories
             _userPropertyCollectionMock.Setup(coll => coll.DeleteOneAsync(It.IsAny<FilterDefinition<UserProperty>>(), default))
                 .ReturnsAsync(deleteResultMock.Object);
 
-            // Act
             var result = await _repository.RemoveUserPropertyAsync("property123", "user123");
 
-            // Assert
             Assert.True(result);
         }
     }

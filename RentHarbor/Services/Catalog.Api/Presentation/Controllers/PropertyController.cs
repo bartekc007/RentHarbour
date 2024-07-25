@@ -40,7 +40,6 @@ namespace Catalog.Api.Controllers
         [HttpGet("rented")]
         public async Task<ActionResult<GetRentedPropertiesQueryResult>> GetRentedProperties()
         {
-            // Authorization logic
             string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
             JsonDocument doc = JsonDocument.Parse(userIdJson);

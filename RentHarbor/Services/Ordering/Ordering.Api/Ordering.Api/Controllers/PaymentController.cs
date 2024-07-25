@@ -39,18 +39,5 @@ namespace Ordering.Api.Controllers
             var result = await _mediator.Send(query);
             return Ok(new { Data = result, Status = HttpStatusCode.OK});
         }
-
-/*        [HttpPost]
-        public async Task<IActionResult> MakePayment([FromBody] CreatePaymentCommand command)
-        {
-            string token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var userIdJson = await _authorizationService.GetUserIdFromTokenAsync(token);
-            JsonDocument doc = JsonDocument.Parse(userIdJson);
-            JsonElement root = doc.RootElement;
-            string userId = root.GetProperty("userId").GetString();
-
-            var paymentId = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetPayments), new { id = paymentId }, null);
-        }*/
     }
 }

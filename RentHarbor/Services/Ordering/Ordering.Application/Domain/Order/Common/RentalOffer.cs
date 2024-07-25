@@ -3,14 +3,14 @@
     public class RentalOffer
     {
         public int Id { get; set; }
-        public string PropertyId { get; set; }  // MongoDB Property ID
+        public string PropertyId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int NumberOfPeople { get; set; }
         public bool Pets { get; set; }
         public bool Accepted { get; set; }
         public string MessageToOwner { get; set; }
-        public string Status { get; set; }  // e.g., Pending, Approved, Rejected
+        public string Status { get; set; }
         public string PropertyName { get; set; }
         public string PropertyStreet { get; set; }
         public string PropertyCity { get; set; }

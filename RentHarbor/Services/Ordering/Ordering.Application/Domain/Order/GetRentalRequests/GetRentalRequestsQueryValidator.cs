@@ -8,7 +8,7 @@ namespace Ordering.Application.Domain.Order.GetRentalRequests
         {
             RuleFor(query => query.OwnerId)
                 .NotEmpty().WithMessage("OwnerId cannot be empty.")
-                .Length(36).WithMessage("OwnerId must be 36 characters long."); // Jeśli ID użytkownika jest UUID
+                .Length(36).WithMessage("OwnerId must be 36 characters long.");
         }
     }
 }

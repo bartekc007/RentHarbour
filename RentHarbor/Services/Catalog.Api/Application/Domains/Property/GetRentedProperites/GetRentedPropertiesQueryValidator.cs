@@ -8,7 +8,7 @@ namespace Catalog.Application.Domains.Property.GetRentedProperites
         {
             RuleFor(query => query.UserId)
                 .NotEmpty().WithMessage("UserId cannot be empty.")
-                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters."); // Adjust regex as needed
+                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters.");
         }
     }
 }

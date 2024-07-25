@@ -24,7 +24,6 @@ namespace Catalog.Unit.Tests.Application.Domains.GetPropertyById
         [Fact]
         public async Task Handle_ShouldReturnProperty_WhenPropertyExists()
         {
-            // Arrange
             var query = new GetPropertyByIdQuery("1");
             var property = new Property { Id = "1", Name = "Property1", Address = new Address { City = "SampleCity" } };
             var propertyDto = new GetPropertyByIdDto { Id = "1", Name = "Property1", Address = new Address { City = "SampleCity" } };
@@ -47,10 +46,8 @@ namespace Catalog.Unit.Tests.Application.Domains.GetPropertyById
             _contextMock.SetupGet(ctx => ctx.Properties).Returns(mockCollection.Object);
             _mapperMock.Setup(m => m.Map<GetPropertyByIdDto>(property)).Returns(propertyDto);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal("1", result.Id);
             Assert.Equal("Property1", result.Name);
@@ -60,7 +57,6 @@ namespace Catalog.Unit.Tests.Application.Domains.GetPropertyById
         [Fact]
         public async Task Handle_ShouldReturnNull_WhenPropertyDoesNotExist()
         {
-            // Arrange
             var query = new GetPropertyByIdQuery("2");
             var mockCollection = new Mock<IMongoCollection<Property>>();
             var mockCursor = new Mock<IAsyncCursor<Property>>();
@@ -79,10 +75,8 @@ namespace Catalog.Unit.Tests.Application.Domains.GetPropertyById
 
             _contextMock.SetupGet(ctx => ctx.Properties).Returns(mockCollection.Object);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.Null(result);
         }
     }

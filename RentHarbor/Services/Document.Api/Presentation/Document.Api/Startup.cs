@@ -1,3 +1,4 @@
+using Document.Api.Healthchecks;
 using Document.Application.Mapping;
 using Document.Application.Registration;
 using Document.Persistance.Registration;
@@ -21,7 +22,6 @@ namespace Document.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterPersistanceLayer(Configuration);
@@ -40,14 +40,16 @@ namespace Document.Api
                 options.AddPolicy("AllowAll",
                     builder =>
                     {
-                        builder.AllowAnyOrigin() // http://localhost:4200
+                        builder.AllowAnyOrigin()
                                .AllowAnyMethod()
                                .AllowAnyHeader();
                     });
             });
+            services.AddHealthChecks()
+                .AddCheck<ReadinessHealthCheck>("readiness")
+                .AddCheck<LivenessHealthCheck>("liveness");
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors("AllowAll");
@@ -65,6 +67,8 @@ namespace Document.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health/readiness");
+                endpoints.MapHealthChecks("/health/live");
             });
         }
     }

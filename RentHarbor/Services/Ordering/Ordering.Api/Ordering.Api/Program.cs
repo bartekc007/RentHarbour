@@ -35,7 +35,6 @@ namespace Ordering.Api
                 }
                 catch (Exception ex)
                 {
-                    // Handle any errors that occurred during database creation
                     Console.WriteLine($"An error occurred creating the DB: {ex.Message}");
                     throw;
                 }

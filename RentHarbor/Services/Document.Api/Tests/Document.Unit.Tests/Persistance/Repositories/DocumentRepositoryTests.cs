@@ -23,13 +23,10 @@ namespace Document.Unit.Tests.Persistance.Repositories
         [Fact]
         public async Task AddDocumentAsync_ShouldInsertDocument()
         {
-            // Arrange
             var document = new OfferDocument { DocumentId = "document1", OfferId = 1, FileName = "test.pdf" };
 
-            // Act
             await _repository.AddDocumentAsync(document);
 
-            // Assert
             _offerDocumentCollectionMock.Verify(coll => coll.InsertOneAsync(document, null, default), Times.Once);
         }
     }

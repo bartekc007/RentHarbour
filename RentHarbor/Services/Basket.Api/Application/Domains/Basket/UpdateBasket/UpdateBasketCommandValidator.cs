@@ -8,11 +8,11 @@ namespace Basket.Application.Domains.Basket.UpdateBasket
         {
             RuleFor(x => x.UserId)
                 .NotEmpty().WithMessage("UserId is required.")
-                .MinimumLength(6).WithMessage("UserId must be 36 characters long."); // Assuming GUID length, adjust as needed
+                .MinimumLength(6).WithMessage("UserId must be 36 characters long.");
 
             RuleFor(x => x.PropertyId)
                 .NotEmpty().WithMessage("PropertyId is required.")
-                .MinimumLength(6).WithMessage("PropertyId must be 36 characters long."); // Assuming GUID length, adjust as needed
+                .MinimumLength(6).WithMessage("PropertyId must be 36 characters long.");
 
             RuleFor(x => x.Action)
                 .IsInEnum().WithMessage("Action must be a valid value.");

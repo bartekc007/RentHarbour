@@ -17,7 +17,6 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
         [Fact]
         public void Validate_ShouldHaveNoErrors_WhenCommandIsValid()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = "validUserName",
@@ -30,17 +29,14 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
                 Country = "Valid Country"
             };
 
-            // Act
             var result = _validator.TestValidate(command);
 
-            // Assert
             result.ShouldNotHaveAnyValidationErrors();
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenUserNameIsEmpty()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = string.Empty,
@@ -53,17 +49,14 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
                 Country = "Valid Country"
             };
 
-            // Act
             var result = _validator.TestValidate(command);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(c => c.UserName).WithErrorMessage("Username is required.");
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenEmailIsInvalid()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = "validUserName",
@@ -76,17 +69,14 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
                 Country = "Valid Country"
             };
 
-            // Act
             var result = _validator.TestValidate(command);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(c => c.Email).WithErrorMessage("Invalid email format.");
         }
 
         [Fact]
         public void Validate_ShouldHaveErrors_WhenPasswordIsTooShort()
         {
-            // Arrange
             var command = new RegisterCommand
             {
                 UserName = "validUserName",
@@ -99,13 +89,9 @@ namespace Authorization.Unit.Tests.Application.Domains.User.Register
                 Country = "Valid Country"
             };
 
-            // Act
             var result = _validator.TestValidate(command);
 
-            // Assert
             result.ShouldHaveValidationErrorFor(c => c.Password).WithErrorMessage("Password length must be between 6 and 100 characters.");
         }
-
-        // Dodaj więcej testów walidatora dla innych przypadków
     }
 }

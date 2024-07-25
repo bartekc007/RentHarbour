@@ -15,7 +15,6 @@ namespace Authorization.Persistance.Context
         {
         }
 
-        // Dodaj tutaj inne DbSety i konfiguracje modeli
         public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,10 +28,5 @@ namespace Authorization.Persistance.Context
                 entity.Property(e => e.LockoutEnd).HasColumnType("datetime");
             });
         }
-
-        /* volumes:
-       - authorization_data:/data:/var/opt/mssql/data
-       - authorization_data:/log:/var/opt/mssql/log
-       - authorization_data:/secrets:/var/opt/mssql/secrets*/
     }
 }

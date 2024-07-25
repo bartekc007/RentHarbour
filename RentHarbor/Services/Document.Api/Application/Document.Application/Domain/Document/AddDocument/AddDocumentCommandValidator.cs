@@ -11,7 +11,7 @@ namespace Document.Application.Domain.Document.AddDocument
 
             RuleFor(command => command.UserId)
                 .NotEmpty().WithMessage("UserId cannot be empty.")
-                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters."); // Adjust regex as needed
+                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters.");
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertyIsAdded()
         {
-            // Arrange
             var command = new UpdateFollowedPropertyCommand
             {
                 Id = "00000000-0000-0000-0000-000000000000",
@@ -31,10 +30,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
             _propertyRepositoryMock.Setup(repo => repo.AddUserPropertyAsync(It.IsAny<UserProperty>()))
                 .Returns(Task.CompletedTask);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.AddUserPropertyAsync(It.IsAny<UserProperty>()), Times.Once);
@@ -43,7 +40,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
         [Fact]
         public async Task Handle_ShouldReturnFailureResult_WhenExceptionIsThrown()
         {
-            // Arrange
             var command = new UpdateFollowedPropertyCommand
             {
                 Id = "00000000-0000-0000-0000-000000000000",
@@ -55,10 +51,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
             _propertyRepositoryMock.Setup(repo => repo.AddUserPropertyAsync(It.IsAny<UserProperty>()))
                 .ThrowsAsync(new Exception("Database error"));
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.False(result.Success);
             Assert.Equal("Database error", result.ErrorMessage);
         }
@@ -66,7 +60,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertyIsRemoved()
         {
-            // Arrange
             var command = new UpdateFollowedPropertyCommand
             {
                 Id = "00000000-0000-0000-0000-000000000000",
@@ -78,10 +71,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
             _propertyRepositoryMock.Setup(repo => repo.RemoveUserPropertyAsync(command.Id, command.UserId))
                 .ReturnsAsync(true);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.RemoveUserPropertyAsync(command.Id, command.UserId), Times.Once);
@@ -90,7 +81,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
         [Fact]
         public async Task Handle_ShouldReturnFailureResult_WhenPropertyRemovalFails()
         {
-            // Arrange
             var command = new UpdateFollowedPropertyCommand
             {
                 Id = "00000000-0000-0000-0000-000000000000",
@@ -102,10 +92,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateFollowedProperty
             _propertyRepositoryMock.Setup(repo => repo.RemoveUserPropertyAsync(command.Id, command.UserId))
                 .ReturnsAsync(false);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.False(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.RemoveUserPropertyAsync(command.Id, command.UserId), Times.Once);

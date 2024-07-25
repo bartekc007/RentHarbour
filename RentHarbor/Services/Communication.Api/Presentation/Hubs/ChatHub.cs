@@ -44,10 +44,8 @@ namespace Communication.Api.Hubs
                 SentAt = DateTime.UtcNow
             };
 
-            // Save the message to the database
             await _messageRepository.AddAsync(message);
 
-            // Send message to all clients subscribed to the specified chatId
             await Clients.Group(chatId).SendAsync("ReceiveMessage", chatId, userId, message.RecipientId, message.SenderName, message.RecipientName, messageContent);
         }
 

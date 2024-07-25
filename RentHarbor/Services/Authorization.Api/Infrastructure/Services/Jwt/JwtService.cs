@@ -90,7 +90,7 @@ namespace Authorization.Infrastructure.Services.Jwt
                 ValidateAudience = true,
                 ValidIssuer = _jwtSettings.Issuer,
                 ValidAudience = _jwtSettings.Audience,
-                ValidateLifetime = false // Tutaj ustawiamy na false, aby móc weryfikować wygasłe tokeny
+                ValidateLifetime = false
             };
 
             var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);

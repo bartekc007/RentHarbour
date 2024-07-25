@@ -23,7 +23,6 @@ namespace Catalog.Unit.Tests.Application.Domains.GetRentedProperties
         [Fact]
         public async Task Handle_ShouldReturnRentedProperties_WhenPropertiesExist()
         {
-            // Arrange
             var query = new GetRentedPropertiesQuery { UserId = "user1" };
             var rentals = new List<Rental>
         {
@@ -40,10 +39,8 @@ namespace Catalog.Unit.Tests.Application.Domains.GetRentedProperties
             _propertyRepositoryMock.Setup(repo => repo.GetPropertyByIdAsync("1")).ReturnsAsync(properties[0]);
             _propertyRepositoryMock.Setup(repo => repo.GetPropertyByIdAsync("2")).ReturnsAsync(properties[1]);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result.Data);
             Assert.Equal(2, result.Data.Count);
             Assert.Equal("Property1", result.Data[0].PropertyName);
@@ -55,16 +52,13 @@ namespace Catalog.Unit.Tests.Application.Domains.GetRentedProperties
         [Fact]
         public async Task Handle_ShouldReturnEmptyList_WhenNoRentedPropertiesExist()
         {
-            // Arrange
             var query = new GetRentedPropertiesQuery { UserId = "user1" };
             var rentals = new List<Rental>();
 
             _rentalRepositoryMock.Setup(repo => repo.GetRentalsByUserIdAsync(query.UserId)).ReturnsAsync(rentals);
 
-            // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            // Assert
             Assert.NotNull(result.Data);
             Assert.Empty(result.Data);
         }

@@ -8,7 +8,7 @@ namespace Catalog.Application.Domains.Property.GetPropertyById
         {
             RuleFor(query => query.PropertyId)
                 .NotEmpty().WithMessage("PropertyId cannot be empty.")
-                .Matches("^[a-zA-Z0-9-]+$").WithMessage("PropertyId contains invalid characters."); // Adjust regex as needed
+                .Matches("^[a-zA-Z0-9-]+$").WithMessage("PropertyId contains invalid characters.");
         }
     }
 }

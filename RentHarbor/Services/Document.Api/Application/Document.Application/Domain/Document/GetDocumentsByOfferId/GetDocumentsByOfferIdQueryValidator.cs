@@ -11,7 +11,7 @@ namespace Document.Application.Domain.Document.GetDocumentsByOfferId
 
             RuleFor(query => query.UserId)
                 .NotEmpty().WithMessage("UserId cannot be empty.")
-                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters."); // Możesz dostosować regex do swojego formatu UserId
+                .Matches("^[a-zA-Z0-9-]+$").WithMessage("UserId contains invalid characters.");
         }
     }
 }

@@ -13,10 +13,8 @@ namespace Ordering.Persistance.Context
                 var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
                 var connectionString = configuration.GetConnectionString("PsqlConnectionString");
 
-                // Ścieżka do pliku SQL
                 var sqlFilePath = Path.Combine(AppContext.BaseDirectory, "Context", "create.txt");
 
-                // Odczytanie zawartości pliku SQL
                 var commandText = File.ReadAllText(sqlFilePath);
 
                 using (var connection = new NpgsqlConnection(connectionString))

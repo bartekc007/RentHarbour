@@ -20,7 +20,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertyIsAdded()
         {
-            // Arrange
             var command = new UpdateBasketCommand
             {
                 UserId = "test_user",
@@ -43,10 +42,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
             _propertyRepositoryMock.Setup(repo => repo.AddPropertyAsync(It.IsAny<Property>()))
                 .Returns(Task.CompletedTask);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.AddPropertyAsync(It.IsAny<Property>()), Times.Once);
@@ -55,7 +52,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
         [Fact]
         public async Task Handle_ShouldReturnFailureResult_WhenExceptionIsThrown()
         {
-            // Arrange
             var command = new UpdateBasketCommand
             {
                 UserId = "test_user",
@@ -66,10 +62,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
             _propertyRepositoryMock.Setup(repo => repo.AddPropertyAsync(It.IsAny<Property>()))
                 .ThrowsAsync(new Exception("Database error"));
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.False(result.Success);
             Assert.Equal("Database error", result.ErrorMessage);
         }
@@ -77,7 +71,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertyIsUpdated()
         {
-            // Arrange
             var command = new UpdateBasketCommand
             {
                 UserId = "test_user",
@@ -106,10 +99,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
             _propertyRepositoryMock.Setup(repo => repo.UpdatePropertyAsync(It.IsAny<Property>()))
                 .ReturnsAsync(true);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.UpdatePropertyAsync(It.IsAny<Property>()), Times.Once);
@@ -118,7 +109,6 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
         [Fact]
         public async Task Handle_ShouldReturnSuccessResult_WhenPropertyIsRemoved()
         {
-            // Arrange
             var command = new UpdateBasketCommand
             {
                 UserId = "test_user",
@@ -129,10 +119,8 @@ namespace Basket.Unit.Tests.Application.Domains.Basket.UpdateBasket
             _propertyRepositoryMock.Setup(repo => repo.RemovePropertyAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
 
-            // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            // Assert
             Assert.True(result.Success);
             Assert.Null(result.ErrorMessage);
             _propertyRepositoryMock.Verify(repo => repo.RemovePropertyAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);

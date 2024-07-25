@@ -35,11 +35,9 @@ namespace Document.Application.Domain.Document.AddDocument
                 if (request.OfferId == null)
                     return null;
 
-                // Przekształć wszystkie istniejące dokumenty na nieaktualne
                 await _documentRepository.MarkDocumentsAsNotLatestAsync(request.OfferId);
                 var offer = await _rentalRequestRepository.GetRentalRequestByOfferIdAsync(request.OfferId);
 
-                // Odczytaj plik
                 byte[] fileContent;
                 using (var memoryStream = new MemoryStream())
                 {

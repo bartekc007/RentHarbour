@@ -1,3 +1,4 @@
+using Authorization.Api.Healthchecks;
 using Authorization.Application.Registration;
 using Authorization.Infrastructure.Registration;
 using Authorization.Persistance.Context;
@@ -25,7 +26,6 @@ namespace Authorization.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterPersistanceLayer(Configuration);
@@ -43,14 +43,16 @@ namespace Authorization.Api
                 options.AddPolicy("AllowAll",
                     builder =>
                     {
-                        builder.AllowAnyOrigin() // http://localhost:4200
+                        builder.AllowAnyOrigin()
                                .AllowAnyMethod()
                                .AllowAnyHeader();
                     });
             });
+            services.AddHealthChecks()
+                .AddCheck<ReadinessHealthCheck>("readiness")
+                .AddCheck<LivenessHealthCheck>("liveness");
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseCors("AllowAll");
@@ -66,7 +68,6 @@ namespace Authorization.Api
                 using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
                     var dbContext = serviceScope.ServiceProvider.GetService<AuthDbContext>();
-                    // Tutaj mo¿esz u¿yæ dbContext do wykonywania operacji na bazie danych
                     app.InitialiseDatabaseAsync(dbContext).Wait();
 
                     var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -83,6 +84,8 @@ namespace Authorization.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health/readiness");
+                endpoints.MapHealthChecks("/health/live");
             });
         }
     }
