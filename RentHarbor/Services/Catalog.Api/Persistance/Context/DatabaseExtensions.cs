@@ -11,22 +11,6 @@ namespace Catalog.Persistance.Context
 {
     public static class DatabaseExtensions
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("PsqlConnectionString");
-
-            services.AddTransient<IDbConnection>(sp => new NpgsqlConnection(connectionString));
-
-            services.AddDbContext<OrderDbContext>(options =>
-                options.UseNpgsql(connectionString));
-
-            services.AddScoped<IRentalRepository, RentalRepository>();
-            services.AddScoped<IRentalRequestRepository, RentalRequestRepository>();
-            services.AddScoped<IPropertyRepository, PropertyRepository>();
-
-            return services;
-        }
-
         public static void EnsureDatabaseCreated(this IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.CreateScope())

@@ -1,13 +1,14 @@
 ﻿using Catalog.Persistance.Entities;
 using Catalog.Persistance.Repositories.Psql;
 using Dapper;
+using Npgsql;
 using System.Data;
 
 public class RentalRepository : IRentalRepository
 {
-    private readonly IDbConnection _connection;
+    private readonly NpgsqlConnection _connection;
 
-    public RentalRepository(IDbConnection connection)
+    public RentalRepository(NpgsqlConnection connection)
     {
         _connection = connection;
     }

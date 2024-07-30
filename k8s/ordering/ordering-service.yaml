@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ordering-service
+  namespace: rentharbor
+  labels:
+    app: ordering
+spec:
+  selector:
+    app: ordering-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

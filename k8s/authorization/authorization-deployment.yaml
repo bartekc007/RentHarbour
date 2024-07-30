@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rentharbor
+  name: authorization-api
+  labels:
+    app: authorization
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authorization-api
+  template:
+    metadata:
+      labels:
+        app: authorization-api
+    spec:
+      containers:
+      - name: authorization-api
+        image: authorizationapi:dev
+        ports:
+        - containerPort: 80
+        command: ["tail", "-f", "/dev/null"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/appsettings.json
+          subPath: appsettings.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: authorization-api-config

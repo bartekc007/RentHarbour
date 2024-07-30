@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rentharbor
+  name: document-api
+  labels:
+    app: document-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: document-api
+  template:
+    metadata:
+      labels:
+        app: document-api
+    spec:
+      containers:
+      - name: document-api
+        image: documentapi:dev
+        ports:
+        - containerPort: 80
+        command: ["tail", "-f", "/dev/null"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/appsettings.json
+          subPath: appsettings.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: document-api-config

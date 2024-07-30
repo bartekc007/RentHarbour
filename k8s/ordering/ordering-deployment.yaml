@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rentharbor
+  name: ordering-api
+  labels:
+    app: ordering-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ordering-api
+  template:
+    metadata:
+      labels:
+        app: ordering-api
+    spec:
+      containers:
+      - name: ordering-api
+        image: orderingapi:dev
+        ports:
+        - containerPort: 80
+        command: ["tail", "-f", "/dev/null"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/appsettings.json
+          subPath: appsettings.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: ordering-api-config

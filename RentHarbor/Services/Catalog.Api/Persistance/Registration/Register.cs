@@ -12,9 +12,13 @@ namespace Catalog.Persistance.Registration
     {
         public static void RegisterPersistanceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDatabase(configuration);
             services.RegisterMongoDb(configuration);
+            services.AddTransient<IRentalRepository, RentalRepository>();
+            services.AddTransient<IRentalRequestRepository, RentalRequestRepository>();
+            services.AddTransient<IPropertyRepository, PropertyRepository>();
 
-            services.AddSingleton<OrderDbContext>();        }
+            services.AddSingleton<OrderDbContext>();
+            services.AddSingleton<NpgsqlConnection>(_ => new NpgsqlConnection(configuration.GetConnectionString("PsqlConnectionString")));
+        }
     }
 }
